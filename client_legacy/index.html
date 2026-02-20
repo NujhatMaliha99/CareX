@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareX - Your simple hub for mind, body, and daily care.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Quicksand:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dreamy-page">
+
+    <!-- Dreamy Background Elements -->
+    <div class="dreamy-bg-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="stars-layer"></div>
+    </div>
+
+    <header class="front-page-header">
+        <div class="container header-flex">
+            <div class="logo-group">
+                <span class="heart-logo">💙</span>
+                <span class="logo-text">CareX</span>
+            </div>
+            <nav class="front-nav">
+                <a href="index.html">Home</a>
+                <a href="#resources">Resources</a>
+                <a href="#about">About</a>
+                <a href="mental.html" class="btn-get-started">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-simple">
+            <div class="container text-center">
+                <h1 class="welcome-title fade-in">Welcome to CareX</h1>
+                <p class="hero-subtitle fade-in delay-1">Your simple hub for mind, body, and daily care.</p>
+            </div>
+        </section>
+
+        <section class="pillars-section">
+            <div class="container">
+                <div class="pillar-grid-precise">
+                    <!-- Physical Health Card -->
+                    <div class="pillar-card-precise fade-in delay-2" onclick="window.location.href='physical.html'">
+                        <div class="card-icon-wrap">🏃</div>
+                        <h2>Physical Health</h2>
+                        <p>Fuel your body, stay active, and build strength.</p>
+                        <a href="physical.html" class="btn-card-action btn-physical-teal">Explore Physical
+                            <span>&gt;</span></a>
+                    </div>
+
+                    <!-- Mental Health Card -->
+                    <div class="pillar-card-precise fade-in delay-2" onclick="window.location.href='mental.html'"
+                        style="animation-delay: 0.6s;">
+                        <div class="card-icon-wrap">🧠</div>
+                        <h2>Mental Health</h2>
+                        <p>Nurture your mind, find calm, and boost emotional resilience.</p>
+                        <a href="mental.html" class="btn-card-action btn-mental-lavender">Explore Mental
+                            <span>&gt;</span></a>
+                    </div>
+
+                    <!-- Hygiene & Awareness Card -->
+                    <div class="pillar-card-precise fade-in delay-2" onclick="window.location.href='hygiene.html'"
+                        style="animation-delay: 0.8s;">
+                        <div class="card-icon-wrap">🛡️</div>
+                        <h2>Hygiene & Awareness</h2>
+                        <p>Learn about self-care, hygiene tips, and healthy habits.</p>
+                        <a href="hygiene.html" class="btn-card-action btn-hygiene-blue">Explore Hygiene
+                            <span>&gt;</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="bottom-wave-decoration"></div>
+
+    <footer id="about" style="padding: 40px 0; background: none;">
+        <div class="container text-center">
+            <p>&copy; 2026 CareX Health. Designed with care.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

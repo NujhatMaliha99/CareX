@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareX - Mental Wellbeing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;700&family=Quicksand:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="emergency-modal.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dreamy-page">
+    <!-- Dreamy Background Elements -->
+    <div class="dreamy-bg-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="stars-layer"></div>
+        <div class="flower-decoration"></div>
+    </div>
+
+    <!-- Quick Action Bar -->
+    <div class="quick-action-bar">
+        <button class="action-btn" onclick="openQuickCalm()" title="Quick Calm">🫧</button>
+
+        <button class="action-btn" onclick="scrollToSection('calm-sounds')" title="Healing Sounds">🎧</button>
+        <button class="action-btn premium-btn" onclick="scrollToSection('appointments')" title="Book Appointment">📅
+            Appointment</button>
+    </div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">🌿 CareX</div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="physical.html">Physical</a>
+                    <a href="#explore-mental-health"
+                        style="background: var(--accent-purple); color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.9rem;">Explore</a>
+                    <div id="user-nav" style="display: inline-flex; align-items: center; gap: 10px;">
+                        <button id="login-nav-btn" class="btn btn-outline btn-sm"
+                            onclick="openModal('auth-modal')">Login</button>
+                        <span id="nav-user-name"
+                            style="display: none; font-weight: 600; color: var(--accent-purple);"></span>
+                        <button id="logout-nav-btn" class="btn btn-outline btn-sm" style="display: none;"
+                            onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Header -->
+    <section class="mental-hero">
+        <div class="container">
+            <h1 class="fade-in">How are you feeling today?</h1>
+            <p class="fade-in delay-1">Let's take one small step toward calm together.</p>
+            <button class="btn btn-primary fade-in delay-2" onclick="openCheckIn()">✅ Start Daily Check-In</button>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="disclaimer-banner">
+                <span style="font-size: 1.5rem;">⚠️</span>
+                <p><strong>CareX Awareness Tool:</strong> This is for wellness support, not a medical diagnosis. If in
+                    crisis, use the emergency button.</p>
+            </div>
+
+            <div class="mental-layout">
+                <!-- Sidebar Navigation -->
+                <aside class="mental-sidebar">
+                    <div id="current-section-display" class="sidebar-active-indicator">Mental Weather</div>
+                    <nav class="sidebar-nav">
+                        <div class="nav-section-title">MENTAL TOOLS</div>
+                        <a href="#mental-weather" class="active">☁️ Mental Weather <span class="nav-progress"
+                                id="progress-weather"></span></a>
+                        <a href="#social-battery">🔋 Social Battery <span class="nav-progress"
+                                id="progress-social"></span></a>
+                        <a href="#panic-rescue" class="emergency-pill">🌊 Panic Rescue <span class="nav-progress"
+                                id="progress-panic"></span></a>
+                        <a href="#need-a-moment">🎡 Need a Moment? <span class="nav-progress"
+                                id="progress-moment"></span></a>
+                        <a href="#release-thoughts">🕊️ Release Overthinking <span class="nav-progress"
+                                id="progress-release"></span></a>
+                        <a href="#focus-mode">🎯 Focus Mode <span class="nav-progress" id="progress-focus"></span></a>
+                        <a href="#sleep-reset">🌙 Sleep Reset <span class="nav-progress" id="progress-sleep"></span></a>
+                        <a href="#gratitude-capsule">🙏 Gratitude Capsule <span class="nav-progress"
+                                id="progress-gratitude"></span></a>
+                        <a href="#tiny-wins">✅ Tiny Wins <span class="nav-progress" id="progress-wins"></span></a>
+                        <a href="#future-letter">✉️ Future Me <span class="nav-progress"
+                                id="progress-future"></span></a>
+                        <a href="#calm-sounds">🎧 Calm Sounds <span class="nav-progress"
+                                id="progress-sounds"></span></a>
+                        <a href="#wellness-wheel">🎡 Wheel of Wellness</a>
+                        <a href="#pmrt">🧘 PMRT <span class="nav-progress" id="progress-pmr"></span></a>
+                        <a href="#explore-mental-health">🔍 Explore Mental Health</a>
+                        <a href="#stories-hope">🌸 Stories & Hope</a>
+                        <a href="#appointments">📅 Appointments</a>
+                    </nav>
+                </aside>
+
+                <!-- Main Feature Content -->
+                <main class="mental-content">
+
+                    <!-- Today's Suggestion Card -->
+                    <div id="today-suggestion" class="worksheet-card suggestion-card fade-in">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span style="font-size: 2rem;">💡</span>
+                            <div>
+                                <h3 style="margin: 0;">Today's Gentle Suggestion</h3>
+                                <p id="suggestion-text" style="font-size: 0.9rem; margin: 5px 0;">Try a 2-minute
+                                    breathing exercise to ground yourself.</p>
+                                <p
+                                    style="font-size: 0.85rem; color: var(--text-light); margin-top: 5px; font-style: italic;">
+                                    Feeling stuck? Spin for a quick support idea.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button class="btn btn-primary btn-sm" onclick="acceptSuggestion()">Start Now</button>
+                            <button class="btn btn-outline btn-sm" onclick="spinFromDashboard()">🎡 Spin Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Mood History Timeline -->
+                    <div id="mood-history" class="worksheet-card fade-in">
+                        <h3>Your Week So Far</h3>
+                        <div class="mood-timeline" id="mood-timeline">
+                            <!-- Populated via JS -->
+                            <div class="timeline-day"><span>Mon</span><span>☀️</span></div>
+                            <div class="timeline-day"><span>Tue</span><span>☁️</span></div>
+                            <div class="timeline-day"><span>Wed</span><span>🌧️</span></div>
+                            <div class="timeline-day"><span>Thu</span><span>☀️</span></div>
+                            <div class="timeline-day"><span>Fri</span><span>--</span></div>
+                            <div class="timeline-day"><span>Sat</span><span>--</span></div>
+                            <div class="timeline-day"><span>Sun</span><span>--</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Mental Weather Section -->
+                    <div id="mental-weather" class="worksheet-card feature-section active-section fade-in">
+                        <h2>Mental Weather</h2>
+                        <p class="section-desc">Check in with your inner self. What's the atmosphere like?</p>
+
+                        <div class="weather-grid">
+                            <button class="weather-btn" onclick="setWeather('sunny', '☀️', this)">☀️ Sunny</button>
+                            <button class="weather-btn" onclick="setWeather('foggy', '🌫️', this)">🌫️ Foggy</button>
+                            <button class="weather-btn" onclick="setWeather('cloudy', '☁️', this)">☁️ Cloudy</button>
+                            <button class="weather-btn" onclick="setWeather('rainy', '🌧️', this)">🌧️ Rainy</button>
+                        </div>
+
+                        <div class="input-group" style="margin-top: 30px;">
+                            <label>Energy Level</label>
+                            <input type="range" id="energy-slider" min="1" max="10" value="5"
+                                oninput="updateEnergyLabel(this.value)">
+                            <p id="energy-val" class="text-center"
+                                style="font-weight: 600; color: var(--accent-purple);">Moderate</p>
+                        </div>
+
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;"
+                            onclick="completeTask('weather')">Log Weather</button>
+                    </div>
+
+                    <!-- Social Battery Section -->
+                    <div id="social-battery" class="worksheet-card feature-section fade-in">
+                        <h2>🫂 Social Battery</h2>
+                        <p class="section-desc">Track your social energy and learn when you need to recharge.</p>
+
+                        <div class="battery-container">
+                            <div class="battery-visual">
+                                <div class="battery-level" id="battery-level" style="width: 50%;"></div>
+                            </div>
+                            <span id="battery-percent">50%</span>
+                        </div>
+
+                        <div class="input-group">
+                            <label>How's your social energy right now?</label>
+                            <input type="range" id="social-slider" min="0" max="100" value="50"
+                                oninput="updateBattery(this.value)">
+                        </div>
+
+                        <div id="battery-tips" class="battery-tips">
+                            <h4>💡 Suggestion</h4>
+                            <p id="battery-tip-text">You're at a balanced level. Consider a short break between social
+                                activities.</p>
+                        </div>
+
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;"
+                            onclick="logBattery()">Log Energy Level</button>
+                    </div>
+
+                    <!-- Panic Rescue (Emergency Design) -->
+                    <div id="panic-rescue" class="worksheet-card emergency-card fade-in">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h2>Panic Rescue</h2>
+                            <button class="btn btn-emergency-alarm" onclick="openModal('helpline-modal')">🚨 Need Help
+                                Now?</button>
+                        </div>
+                        <p class="section-desc">You are safe. We are right here with you. Focus on the circle.</p>
+
+                        <div class="timer-container">
+                            <div class="timer-circle breathing-circle" id="breathing-display">
+                                <h3 id="breathing-stage">Ready?</h3>
+                                <span id="breathing-timer" class="breathing-countdown">5</span>
+                                <span id="breathing-cycle" class="breathing-cycle-text"></span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary" id="start-breathing-btn" onclick="toggleBreathing()">Begin
+                                Breathing</button>
+                        </div>
+                    </div>
+
+                    <!-- Need a Moment Section -->
+                    <div id="need-a-moment" class="worksheet-card feature-section fade-in">
+                        <h2>🎡 Need a Moment?</h2>
+                        <p class="section-desc">Quick activities to reset when you're feeling overwhelmed.</p>
+
+                        <div class="moment-grid">
+                            <div class="moment-card" onclick="startMomentActivity('count')">
+                                <span class="moment-icon">🔢</span>
+                                <h4>5-4-3-2-1</h4>
+                                <p>Grounding exercise</p>
+                            </div>
+                            <div class="moment-card" onclick="startMomentActivity('stretch')">
+                                <span class="moment-icon">🙆</span>
+                                <h4>Quick Stretch</h4>
+                                <p>30-second body reset</p>
+                            </div>
+                            <div class="moment-card" onclick="startMomentActivity('water')">
+                                <span class="moment-icon">💧</span>
+                                <h4>Drink Water</h4>
+                                <p>Hydration check</p>
+                            </div>
+                            <div class="moment-card" onclick="startMomentActivity('look')">
+                                <span class="moment-icon">🪟</span>
+                                <h4>Look Outside</h4>
+                                <p>2 min nature break</p>
+                            </div>
+                        </div>
+
+                        <div id="moment-popup" class="moment-popup" style="display: none;">
+                            <div id="moment-content"></div>
+                            <button class="btn btn-primary" onclick="closeMomentPopup()">Done ✓</button>
+                        </div>
+                    </div>
+
+                    <!-- Release Thoughts Section -->
+                    <div id="release-thoughts" class="worksheet-card feature-section fade-in">
+                        <h2>Release Overthinking</h2>
+                        <textarea id="dump-textarea" style="height: 150px;"
+                            placeholder="Write it down here..."></textarea>
+                        <div class="text-center">
+                            <button class="btn btn-primary" onclick="releaseThoughts()">🕊️ Let It Fly Away</button>
+                        </div>
+                    </div>
+
+                    <!-- Focus Mode Section -->
+                    <div id="focus-mode" class="worksheet-card feature-section fade-in">
+                        <h2>🎯 Focus Mode</h2>
+                        <div class="timer-display-minimal">
+                            <span id="focus-timer-text">25:00</span>
+                        </div>
+                        <div class="text-center" style="display: flex; gap: 10px; justify-content: center;">
+                            <button class="btn btn-primary" id="focus-toggle-btn" onclick="toggleFocusTimer()">Start
+                                Focus</button>
+                            <button class="btn-outline" onclick="resetFocusTimer()">Reset</button>
+                        </div>
+                    </div>
+
+                    <!-- Sleep Reset Section -->
+                    <div id="sleep-reset" class="worksheet-card feature-section fade-in">
+                        <h2>🌙 Sleep Reset</h2>
+                        <div class="sleep-routine-list">
+                            <div class="check-item"><input type="checkbox"> No screens for 30 mins</div>
+                            <div class="check-item"><input type="checkbox"> Dim the lights</div>
+                            <div class="check-item"><input type="checkbox"> Gentle stretching</div>
+                        </div>
+                        <div class="text-center" style="margin-top: 30px;">
+                            <button class="btn btn-primary" onclick="startSleepWindDown()">Start Wind-Down
+                                Timer</button>
+                        </div>
+                    </div>
+
+                    <!-- Gratitude Capsule Section -->
+                    <div id="gratitude-capsule" class="worksheet-card feature-section fade-in">
+                        <h2>🙏 Gratitude Capsule</h2>
+                        <div class="input-group">
+                            <input type="text" id="gratitude-input" placeholder="Today I am thankful for...">
+                            <button class="btn btn-primary" style="margin-top: 10px; width: 100%;"
+                                onclick="addGratitude()">✨ Store Joy</button>
+                        </div>
+                        <div id="gratitude-list" class="capsule-storage"></div>
+                    </div>
+
+                    <!-- Tiny Wins Section -->
+                    <div id="tiny-wins" class="worksheet-card feature-section fade-in">
+                        <h2>✅ Tiny Wins</h2>
+                        <div class="input-group" style="display: flex; gap: 10px;">
+                            <input type="text" id="win-input" placeholder="Small achievement today...">
+                            <button class="btn btn-primary" onclick="addWin()">Add Win</button>
+                        </div>
+                        <div id="wins-list" class="win-items"></div>
+                    </div>
+
+                    <!-- Future Me Section -->
+                    <div id="future-letter" class="worksheet-card feature-section fade-in">
+                        <h2>✉️ Future Me</h2>
+                        <p class="section-desc">Write a letter to your future self. It will be waiting for you.</p>
+
+                        <div class="input-group">
+                            <label>When should Future You receive this?</label>
+                            <input type="date" id="future-date" min="">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Dear Future Me...</label>
+                            <textarea id="future-letter-text" rows="6"
+                                placeholder="Write words of encouragement, goals, or just how you're feeling today..."></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" style="width: 100%;" onclick="saveFutureLetter()">📮 Seal & Save
+                            Letter</button>
+
+                        <div id="saved-letters" class="saved-letters" style="margin-top: 30px;">
+                            <h4>📬 Your Time Capsule</h4>
+                            <div id="letters-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Calm Sounds Section -->
+                    <div id="calm-sounds" class="worksheet-card feature-section fade-in">
+                        <h2>🎧 Calm Sounds</h2>
+                        <p class="section-desc">Immerse yourself in peaceful sounds to ease your mind.</p>
+
+                        <div class="sound-grid">
+                            <div class="sound-card" onclick="playSound('rain')">
+                                <span class="sound-icon">🌧️</span>
+                                <span>Rain</span>
+                            </div>
+                            <div class="sound-card" onclick="playSound('forest')">
+                                <span class="sound-icon">🌲</span>
+                                <span>Forest</span>
+                            </div>
+                            <div class="sound-card" onclick="playSound('ocean')">
+                                <span class="sound-icon">🌊</span>
+                                <span>Ocean</span>
+                            </div>
+                            <div class="sound-card" onclick="playSound('lofi')">
+                                <span class="sound-icon">🎧</span>
+                                <span>Lofi</span>
+                            </div>
+                            <div class="sound-card" onclick="playSound('deep_sleep')">
+                                <span class="sound-icon">🌙</span>
+                                <span>Deep Sleep</span>
+                            </div>
+                            <div class="sound-card" onclick="playSound('relaxation')">
+                                <span class="sound-icon">🧘</span>
+                                <span>Relaxation</span>
+                            </div>
+                        </div>
+
+                        <div id="sound-player" class="sound-player" style="display: none;">
+                            <audio id="local-audio-player" loop></audio>
+                            <div class="now-playing">
+                                <span id="playing-icon">🎵</span>
+                                <span id="playing-name">Now Playing</span>
+                                <span class="loop-badge"
+                                    style="font-size: 0.7rem; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 10px; margin-left: 10px;">🔁
+                                    Looping</span>
+                            </div>
+                            <div class="sound-controls">
+                                <input type="range" id="volume-slider" min="0" max="100" value="70"
+                                    oninput="setVolume(this.value)">
+                                <button class="btn btn-outline" onclick="stopSound()">⏹️ Stop</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wellness Wheel Section -->
+                    <div id="wellness-wheel" class="worksheet-card feature-section fade-in">
+                        <div class="text-center">
+                            <h2>Wheel of Wellness</h2>
+                            <p class="section-desc">Not sure what you need right now? Spin for a gentle suggestion.</p>
+                        </div>
+
+                        <div class="wheel-outer-container">
+                            <div class="wheel-wrapper">
+                                <!-- The wheel -->
+                                <div class="calm-wheel" id="calm-wheel-spinner">
+                                    <div class="wheel-segment" style="--i:0; --bg:#d0e8f2">
+                                        <span>Breathing Exercise</span>
+                                    </div>
+                                    <div class="wheel-segment" style="--i:1; --bg:#f3e5f5">
+                                        <span>Release Thoughts (Journal)</span>
+                                    </div>
+                                    <div class="wheel-segment" style="--i:2; --bg:#e8f5e9">
+                                        <span>Learn About Anxiety</span>
+                                    </div>
+                                    <div class="wheel-segment" style="--i:3; --bg:#fff9c4">
+                                        <span>Grounding Exercise</span>
+                                    </div>
+                                    <div class="wheel-segment" style="--i:4; --bg:#ffccbc">
+                                        <span>Talk to Someone / Support</span>
+                                    </div>
+                                    <div class="wheel-segment" style="--i:5; --bg:#c8e6c9">
+                                        <span>Talk to Someone / Support</span>
+                                    </div>
+                                    <div class="wheel-segment" style="--i:6; --bg:#bbdefb">
+                                        <span>Sleep Reset Tip</span>
+                                    </div>
+                                    <div class="wheel-segment" style="--i:7; --bg:#d1c4e9">
+                                        <span>Breathing Exercise</span>
+                                    </div>
+                                </div>
+                                <!-- Pointer -->
+                                <div class="wheel-pointer"></div>
+                                <!-- Center button -->
+                                <button class="wheel-center-btn" id="wheel-spin-btn" onclick="spinWheel()">
+                                    SPIN
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Result Display -->
+                        <div id="wheel-result" class="wheel-result" style="display: none;">
+                            <h3 id="result-header">You got: <span id="result-title">Learn About Anxiety</span></h3>
+                            <div class="wheel-result-buttons">
+                                <button class="btn btn-primary" onclick="executeWheelAction()">Learn More</button>
+                                <button class="btn btn-outline" onclick="closeWheelResult()">Save for Later</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Premium PMRT (Progressive Muscle Relaxation) Section -->
+                    <div id="pmrt" class="worksheet-card feature-section fade-in">
+                        <h2>🧘 PMRT</h2>
+                        <p class="section-desc">Relax your body, one muscle group at a time. Tense → Hold → Release →
+                            Breathe</p>
+
+                        <!-- Session Length Options -->
+                        <div class="pmrt-options">
+                            <button class="pmrt-duration-btn active" data-duration="2"
+                                onclick="setPMRTDuration(2, this)">⚡ 2 min Quick</button>
+                            <button class="pmrt-duration-btn" data-duration="5" onclick="setPMRTDuration(5, this)">🌿 5
+                                min Calm</button>
+                            <button class="pmrt-duration-btn" data-duration="10" onclick="setPMRTDuration(10, this)">🌙
+                                10 min Deep</button>
+                        </div>
+
+                        <!-- Body Silhouette Visual -->
+                        <div class="pmrt-container">
+                            <div class="body-silhouette-wrapper">
+                                <svg viewBox="0 0 200 400" class="body-silhouette" id="body-silhouette">
+                                    <!-- Head -->
+                                    <ellipse cx="100" cy="40" rx="30" ry="35" class="body-region" id="pmrt-head"
+                                        data-part="head" />
+                                    <!-- Neck -->
+                                    <rect x="90" y="70" width="20" height="20" rx="5" class="body-region" id="pmrt-neck"
+                                        data-part="neck" />
+                                    <!-- Shoulders -->
+                                    <ellipse cx="55" cy="100" rx="25" ry="15" class="body-region" id="pmrt-shoulder-l"
+                                        data-part="shoulders" />
+                                    <ellipse cx="145" cy="100" rx="25" ry="15" class="body-region" id="pmrt-shoulder-r"
+                                        data-part="shoulders" />
+                                    <!-- Chest -->
+                                    <ellipse cx="100" cy="130" rx="45" ry="35" class="body-region" id="pmrt-chest"
+                                        data-part="chest" />
+                                    <!-- Arms -->
+                                    <rect x="25" y="105" width="20" height="80" rx="10" class="body-region"
+                                        id="pmrt-arm-l" data-part="arms" />
+                                    <rect x="155" y="105" width="20" height="80" rx="10" class="body-region"
+                                        id="pmrt-arm-r" data-part="arms" />
+                                    <!-- Hands -->
+                                    <ellipse cx="35" cy="195" rx="15" ry="18" class="body-region" id="pmrt-hand-l"
+                                        data-part="hands" />
+                                    <ellipse cx="165" cy="195" rx="15" ry="18" class="body-region" id="pmrt-hand-r"
+                                        data-part="hands" />
+                                    <!-- Stomach -->
+                                    <ellipse cx="100" cy="185" rx="40" ry="30" class="body-region" id="pmrt-stomach"
+                                        data-part="stomach" />
+                                    <!-- Legs -->
+                                    <rect x="60" y="210" width="30" height="120" rx="15" class="body-region"
+                                        id="pmrt-leg-l" data-part="legs" />
+                                    <rect x="110" y="210" width="30" height="120" rx="15" class="body-region"
+                                        id="pmrt-leg-r" data-part="legs" />
+                                    <!-- Feet -->
+                                    <ellipse cx="75" cy="345" rx="20" ry="15" class="body-region" id="pmrt-foot-l"
+                                        data-part="feet" />
+                                    <ellipse cx="125" cy="345" rx="20" ry="15" class="body-region" id="pmrt-foot-r"
+                                        data-part="feet" />
+                                    <!-- Wave overlay (for release animation) -->
+                                    <rect x="0" y="400" width="200" height="10" fill="url(#waveGradient)"
+                                        class="release-wave" id="pmrt-wave" />
+                                    <defs>
+                                        <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#a5d6a7;stop-opacity:0.8" />
+                                            <stop offset="100%" style="stop-color:#4caf50;stop-opacity:0" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+
+                                <!-- Tense-Release Ring -->
+                                <div class="pmrt-ring" id="pmrt-ring">
+                                    <div class="ring-inner">
+                                        <span class="ring-phase" id="pmrt-ring-phase">Ready</span>
+                                        <span class="ring-timer" id="pmrt-ring-timer">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Instruction Panel -->
+                        <div id="pmrt-instruction-panel" class="pmrt-instruction">
+                            <h4 id="pmrt-part-name">Let's Begin</h4>
+                            <p id="pmrt-instruction-text">Click "Start Relaxation" to begin a guided body relaxation
+                                journey.</p>
+                        </div>
+
+                        <!-- Progress Journey -->
+                        <div class="pmrt-progress" id="pmrt-progress">
+                            <span class="pmrt-step" data-step="feet">🦶 Feet</span>
+                            <span class="pmrt-step" data-step="legs">🦵 Legs</span>
+                            <span class="pmrt-step" data-step="stomach">🫃 Stomach</span>
+                            <span class="pmrt-step" data-step="chest">❤️ Chest</span>
+                            <span class="pmrt-step" data-step="hands">🤲 Hands</span>
+                            <span class="pmrt-step" data-step="arms">💪 Arms</span>
+                            <span class="pmrt-step" data-step="shoulders">🤷 Shoulders</span>
+                            <span class="pmrt-step" data-step="neck">🦴 Neck</span>
+                            <span class="pmrt-step" data-step="head">😌 Face</span>
+                        </div>
+
+                        <div class="text-center" style="margin-top: 25px;">
+                            <button class="btn btn-primary btn-lg" id="pmrt-start-btn" onclick="togglePMRT()">🌿 Start
+                                Relaxation</button>
+                        </div>
+
+                        <!-- Post-session Rating -->
+                        <div id="pmrt-complete" class="pmrt-complete" style="display: none;">
+                            <h3>✨ You are safe. Your body is lighter now 💜</h3>
+                            <p>How relaxed do you feel now?</p>
+                            <div class="relaxation-slider">
+                                <span>😰</span>
+                                <input type="range" id="relaxation-rating" min="1" max="10" value="5">
+                                <span>😌</span>
+                            </div>
+                            <button class="btn btn-primary" onclick="savePMRTSession()">Save & Close</button>
+                        </div>
+                    </div>
+
+                    <!-- Explore Mental Health Section -->
+                    <div id="explore-mental-health" class="worksheet-card feature-section fade-in">
+                        <div class="explore-header">
+                            <div>
+                                <h2>Explore Mental Health</h2>
+                                <p class="section-desc">Learn about common mental health conditions, their signs, and
+                                    available help.</p>
+                            </div>
+                            <div class="explore-search">
+                                <input type="text" id="topic-search" placeholder="Search topics..."
+                                    onkeyup="searchTopics()">
+                            </div>
+                        </div>
+
+                        <div class="filter-chips">
+                            <button class="filter-chip active" onclick="filterExplore('all')">All</button>
+                            <button class="filter-chip" onclick="filterExplore('conditions')">Conditions</button>
+                            <button class="filter-chip" onclick="filterExplore('coping')">Coping Skills</button>
+                        </div>
+
+                        <div id="explore-grid" class="explore-grid">
+                            <!-- Condition Cards Populated via JS -->
+                        </div>
+
+                        <div class="text-center" style="margin-top: 30px;">
+                            <button class="btn btn-outline" onclick="scrollToSection('explore-mental-health')">See all
+                                conditions</button>
+                        </div>
+                    </div>
+
+                    <!-- Stories & Hope Section -->
+                    <div id="stories-hope" class="worksheet-card feature-section fade-in">
+                        <div class="explore-header">
+                            <div>
+                                <h2>🌸 Stories & Hope</h2>
+                                <p class="section-desc">Real experiences. Gentle encouragement. You are not alone.</p>
+                            </div>
+                            <div class="explore-search">
+                                <input type="text" id="story-search" placeholder="Search stories..."
+                                    onkeyup="filterStories()">
+                            </div>
+                        </div>
+
+                        <div class="filter-chips" id="story-filter-chips">
+                            <button class="filter-chip active" onclick="setStoryFilter('All')">All</button>
+                            <button class="filter-chip" onclick="setStoryFilter('Anxiety')">Anxiety</button>
+                            <button class="filter-chip" onclick="setStoryFilter('Depression')">Depression</button>
+                            <button class="filter-chip" onclick="setStoryFilter('Healing')">Healing</button>
+                            <button class="filter-chip" onclick="setStoryFilter('Burnout')">Burnout</button>
+                            <button class="filter-chip" onclick="setStoryFilter('Self-Love')">Self-Love</button>
+                        </div>
+
+                        <!-- Story of the Day Hero -->
+                        <div id="story-of-the-day" class="story-hero-card">
+                            <!-- Populated via JS -->
+                        </div>
+
+                        <div class="section-divider">
+                            <h3>Latest Stories</h3>
+                        </div>
+
+                        <div id="stories-grid" class="stories-grid">
+                            <!-- Stories Populated via JS -->
+                        </div>
+
+                        <div class="text-center" style="margin-top: 40px;">
+                            <button class="btn btn-primary btn-lg" onclick="openModal('share-story-modal')">➕ Share Your
+                                Story</button>
+                            <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">Stories are moderated for
+                                safety.</p>
+                        </div>
+                    </div>
+                    <!-- Appointments Section -->
+                    <div id="appointments" class="worksheet-card feature-section fade-in">
+                        <h2>📅 Book Professional Support</h2>
+                        <p class="section-desc">Connect with licensed mental health professionals in Bangladesh.</p>
+
+                        <div class="appointment-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="support-card">
+                                <h3>Counselling / Psychotherapy</h3>
+                                <div
+                                    style="margin: 15px 0; padding: 15px; background: linear-gradient(135deg, #f8f9fa 0%, #e8eaf6 100%); border-radius: 12px; border-left: 4px solid #7e57c2;">
+                                    <p style="margin: 0; font-weight: 700; color: #2d3436; font-size: 1.05rem;">Dr. Md.
+                                        Zahir Uddin</p>
+                                    <p style="margin: 8px 0 0 0; font-size: 0.85rem; color: #636e72; line-height: 1.7;">
+                                        BSc (Psychology), MSc (Clinical Psychology)<br>
+                                        MPhil (Clinical Psychology), PhD<br>
+                                        <span style="font-weight: 600; color: #7e57c2;">Assistant Professor</span><br>
+                                        <span style="font-style: italic;">National Institute of Mental Health,
+                                            Dhaka</span>
+                                    </p>
+                                </div>
+                                <button class="btn btn-primary" onclick="openBooking('Dr. Md. Zahir Uddin')">Book
+                                    Session</button>
+                            </div>
+                            <div class="support-card">
+                                <h3>Psychiatrist</h3>
+                                <div
+                                    style="margin: 15px 0; padding: 15px; background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%); border-radius: 12px; border-left: 4px solid #4caf50;">
+                                    <p style="margin: 0; font-weight: 700; color: #2d3436; font-size: 1.05rem;">Prof.
+                                        Dr. Helal Uddin Ahmed</p>
+                                    <p style="margin: 8px 0 0 0; font-size: 0.85rem; color: #636e72; line-height: 1.7;">
+                                        MBBS, MD (Psychiatry)<br>
+                                        <span style="font-weight: 600; color: #4caf50;">Professor - Child Adolescent &
+                                            Family Psychiatry</span><br>
+                                        <span style="font-style: italic;">Department of Psychiatry and Mental
+                                            Health</span>
+                                    </p>
+                                </div>
+                                <button class="btn btn-primary"
+                                    onclick="openBooking('Prof. Dr. Helal Uddin Ahmed')">Schedule
+                                    Assessment</button>
+                            </div>
+                        </div>
+                        <div id="booking-status-box" style="margin-top: 30px; display: none;">
+                            <h3>Your Appointments</h3>
+                            <div id="appointment-list"></div>
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Condition Detail Modal -->
+    <div id="condition-modal" class="modal">
+        <div class="modal-content condition-modal-content">
+            <span class="close-modal" onclick="closeModal('condition-modal')">&times;</span>
+            <div id="condition-detail-body">
+                <!-- Data injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Story Modal -->
+    <div id="share-story-modal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="chat-header">
+                <h3>🌸 Share Your Journey</h3>
+                <span class="close-modal" onclick="closeModal('share-story-modal')">&times;</span>
+            </div>
+            <div class="modal-inner-padding">
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">Your story can inspire someone today.
+                    All stories are anonymous by default and reviewed by our team.</p>
+
+                <form id="story-form" onsubmit="submitStory(event)">
+                    <div class="input-group">
+                        <label>Title</label>
+                        <input type="text" id="story-title" placeholder="e.g., How I Managed My First Panic Attack"
+                            required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Mood Tag</label>
+                        <select id="story-mood" required>
+                            <option value="General">General</option>
+                            <option value="Anxiety">Anxiety</option>
+                            <option value="Depression">Depression</option>
+                            <option value="Healing">Healing</option>
+                            <option value="Burnout">Burnout</option>
+                            <option value="Self-Love">Self-Love</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Your Story</label>
+                        <textarea id="story-content" rows="8"
+                            placeholder="Share your experience, what helped you, or words of hope..."
+                            required></textarea>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                        <input type="checkbox" id="story-anonymous" checked>
+                        <label for="story-anonymous" style="font-size: 0.9rem; margin: 0;">Share anonymously</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Post Story for Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal removed as we now use local audio -->
+    <div id="video-modal" class="modal" style="display: none;"></div>
+    <div id="minimized-player" style="display: none;"></div>
+
+    <style>
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('booking-modal')">&times;</span>
+            <h3 id="modal-service-title">Book Appointment</h3>
+            <div class="input-group"><label>Date</label><input type="date" id="book-date"></div>
+            <div class="input-group">
+                <label>Time Slot</label>
+                <select id="book-time">
+                    <option>09:00 AM</option>
+                    <option>11:00 AM</option>
+                    <option>02:00 PM</option>
+                    <option>04:00 PM</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top:10px;" onclick="submitBooking()">Confirm
+                Booking</button>
+        </div>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="helpline-modal" class="modal">
+        <div class="modal-content emergency-modal-content">
+            <span class="close-modal" onclick="closeModal('helpline-modal')">&times;</span>
+            <h3 style="color: #ff5252; font-size: 1.8rem; margin-bottom: 10px;">🚨 Emergency Support</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 25px;"><strong>You are not alone. Help is available
+                    24/7.</strong></p>
+
+            <div class="emergency-section">
+                <h4 style="color: #d32f2f; margin-bottom: 15px;">🇧🇩 Bangladesh Emergency Services</h4>
+                <ul class="helpline-list">
+                    <li class="helpline-primary">
+                        <strong>Emergency Services:</strong>
+                        <a href="tel:999" class="emergency-link">999</a>
+                        <span class="helpline-badge">24/7</span>
+                    </li>
+                    <li class="helpline-primary">
+                        <strong>Suicide Prevention Crisis Line:</strong>
+                        <a href="tel:+8801779554391" class="emergency-link">+880 1779-554391</a>
+                        <span class="helpline-badge">24/7</span>
+                        <br><small style="color: #666; margin-top: 5px; display: block;">Bangladesh's first emotional
+                            support and suicide prevention helpline, staffed by trained volunteers.</small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="emergency-section" style="margin-top: 25px;">
+                <h4 style="color: #666; margin-bottom: 15px;">🌍 International Emergency Services</h4>
+                <ul class="helpline-list">
+                    <li><strong>US/Canada:</strong> Call or Text <a href="tel:988" class="emergency-link">988</a></li>
+                    <li><strong>UK:</strong> Call <a href="tel:111" class="emergency-link">111</a> or <a href="tel:999"
+                            class="emergency-link">999</a></li>
+                    <li><strong>Other Countries:</strong> Contact local emergency services</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="closeModal('helpline-modal')" class="btn btn-outline" style="padding: 12px 30px;">
+                    ← Back to CareX
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('auth-modal')">&times;</span>
+
+            <div id="login-form">
+                <h2>💬 Login to CareX</h2>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" placeholder="you@example.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="userLogin()">Login</button>
+                <p style="text-align: center; margin-top: 15px; color: var(--text-light);">
+                    Don't have an account? <a href="#" onclick="showAuthMode('register')">Register</a>
+                </p>
+                <p id="login-err-msg" style="color: #c62828; margin-top: 15px; text-align: center; font-size: 0.9rem;">
+                </p>
+            </div>
+
+            <div id="register-form" style="display: none;">
+                <h2>✨ Create Account</h2>
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" id="reg-name" placeholder="Your name">
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="reg-email" placeholder="you@example.com">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="reg-password" placeholder="••••••••">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="userRegister()">Register</button>
+                <p style="text-align: center; margin-top: 15px; color: var(--text-light);">
+                    Already have an account? <a href="#" onclick="showAuthMode('login')">Login</a>
+                </p>
+                <p id="reg-err-msg" style="color: #c62828; margin-top: 15px; text-align: center; font-size: 0.9rem;">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Rescue Button -->
+    <button class="emergency-btn-fixed" onclick="callEmergency()" title="Emergency - Call 999">
+        <span class="emergency-icon">🚨</span>
+        <span class="emergency-text">EMERGENCY<br>CALL 999</span>
+    </button>
+
+    <footer id="about">
+        <div class="container text-center">
+            <p>&copy; 2026 CareX Health. Designed with care.</p>
+            <p class="disclaimer-text">Wellness support tool. Non-medical guidance.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
