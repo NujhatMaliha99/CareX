@@ -687,6 +687,11 @@ footer {
     align-items: center;
 }
 
+.front-nav-resources {
+    justify-content: space-between;
+    display: flex;
+}
+
 .front-nav a {
     text-decoration: none;
     color: var(--text-light);
@@ -2490,6 +2495,68 @@ input[type="range"]::-webkit-slider-thumb:hover {
     gap: 15px;
     justify-content: center;
     margin-top: 20px;
+}
+.resources-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.resources-container {
+  max-width: 6000px;
+  max-height: 6000px;
+  height: 100%;
+  width: 100%;
+  margin: 60px auto;
+  padding-top: 80px;
+  padding-bottom: 150px;
+}
+
+.resource-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 16px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+  height: 100px;
+  width: 1200px;
+  margin-left: 300px;
+  background-color: white;
+  border-radius: 24px ;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.resource-card:hover {
+  background: #f9f9f9;
+}
+
+.resource-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.resource-icon {
+  font-size: 24px;
+}
+
+.resource-card h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.resource-card p {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.resource-arrow {
+  font-size: 22px;
+  color: #aaa;
 }
 
 @keyframes fadeIn {

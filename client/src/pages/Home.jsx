@@ -21,7 +21,7 @@ export default function Home() {
                     </div>
                     <nav className="front-nav">
                         <Link to="/">Home</Link>
-                        <a href="#resources">Resources</a>
+                        <Link to="/resources">Resources</Link>
                         <a href="#about">About</a>
                         <Link to="/mental" className="btn-get-started">Get Started</Link>
                     </nav>
