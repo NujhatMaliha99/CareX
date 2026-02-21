@@ -5,8 +5,16 @@ import PhysicalHealth from './pages/PhysicalHealth';
 import HygieneAwareness from './pages/HygieneAwareness';
 import AdminDashboard from './pages/AdminDashboard';
 import ChatRoom from './pages/ChatRoom';
+import { useState } from "react";
+import SplashScreen from "./physic/SplashScreen";
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  if (showSplash) {
+    return <SplashScreen onFinish={() => setShowSplash(false)} />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>

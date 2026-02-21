@@ -1,0 +1,49 @@
+
+.splash-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    #7fb0ad 0%,
+    #6d8fc5 100%
+  );
+  overflow: hidden;
+}
+
+
+.content {
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.8s ease;
+}
+
+.content.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+.logo {
+  width: 140px;
+  margin-bottom: 25px;
+}
+
+
+.title {
+  font-size: 52px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  letter-spacing: 3px;
+}
+
+
+.subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 12px;
+}
