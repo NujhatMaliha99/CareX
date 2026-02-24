@@ -73,10 +73,12 @@ export default function BreatheCircle() {
             <p className="section-desc">You are safe. We are right here with you. Focus on the circle.</p>
 
             <div className="timer-container">
-                <div className={`timer-circle breathing-circle ${breathingClass}`} id="breathing-display">
-                    <h3>{stageText}</h3>
-                    <span className="breathing-countdown">{timer}</span>
-                    {isActive && <span className="breathing-cycle-text">Cycle {cycle} of {totalCycles}</span>}
+                <div className={`timer-circle breathing-circle ${breathingClass} ${isActive ? 'active-session' : ''}`} id="breathing-display">
+                    <div className="breathing-inner-content">
+                        <h3 style={{ margin: 0, opacity: 0.8, fontSize: '1rem', fontWeight: 600 }}>{stageText}</h3>
+                        <span className="breathing-countdown" style={{ display: 'block', margin: '10px 0' }}>{timer}</span>
+                        {isActive && <span className="breathing-cycle-text" style={{ fontStyle: 'italic', opacity: 0.7 }}>Cycle {cycle} of {totalCycles}</span>}
+                    </div>
                 </div>
             </div>
             <div className="text-center">
