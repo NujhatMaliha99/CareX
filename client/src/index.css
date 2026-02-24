@@ -799,6 +799,54 @@ footer {
     margin: 0 auto;
 }
 
+/* Auth Header Buttons */
+.btn-login-header {
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.btn-login-header:hover {
+    color: var(--accent-purple);
+}
+
+.btn-signup-header {
+    margin-left: -15px;
+}
+
+.user-profile-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-greeting {
+    font-weight: 700;
+    color: var(--accent-purple);
+    font-size: 0.95rem;
+}
+
+.btn-logout-minimal {
+    background: rgba(229, 62, 62, 0.05);
+    color: #e53e3e;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-logout-minimal:hover {
+    background: #e53e3e;
+    color: white;
+}
+
 .pillar-grid-precise {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

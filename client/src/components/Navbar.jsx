@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-export default function Navbar() {
+export default function Navbar({ user, handleLogout }) {
     const location = useLocation();
     const isMentalPage = location.pathname === '/mental';
 
@@ -17,6 +17,12 @@ export default function Navbar() {
                         <Link to="/physical">Physical Health</Link>
                         <Link to="/mental" style={isMentalPage ? { background: 'var(--accent-purple)', color: 'white', padding: '5px 15px', borderRadius: '15px' } : {}}>Mental Health</Link>
                         <Link to="/hygiene">Hygiene & Awareness</Link>
+                        {user && (
+                            <div className="user-profile-nav" style={{ marginLeft: '20px' }}>
+                                <span className="user-greeting">Hi, {user.name.split(' ')[0]}</span>
+                                <button onClick={handleLogout} className="btn-logout-minimal">Logout</button>
+                            </div>
+                        )}
                     </div>
                 </nav>
             </div>

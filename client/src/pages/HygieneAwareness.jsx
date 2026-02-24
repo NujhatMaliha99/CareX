@@ -1,10 +1,10 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-export default function HygieneAwareness() {
+export default function HygieneAwareness({ user, handleLogout }) {
     return (
         <div className="hygiene-page dreamy-page">
-            <Navbar />
+            <Navbar user={user} handleLogout={handleLogout} />
             <div className="dreamy-bg-container">
                 <div className="cloud cloud-1"></div>
                 <div className="cloud cloud-2"></div>
