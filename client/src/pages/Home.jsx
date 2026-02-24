@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import AuthModal from '../components/AuthModal';
 
-export default function Home() {
+export default function Home({ user, setUser, handleLogout }) {
     const navigate = useNavigate();
+    const [isAuthOpen, setIsAuthOpen] = useState(false);
 
     return (
         <div className="home-page dreamy-page">
@@ -23,10 +26,27 @@ export default function Home() {
                         <Link to="/">Home</Link>
                         <Link to="/resources">Resources</Link>
                         <a href="#about">About</a>
+                        {user ? (
+                            <div className="user-profile-nav">
+                                <span className="user-greeting">Hi, {user.name.split(' ')[0]} 👋</span>
+                                <button onClick={handleLogout} className="btn-logout-minimal">Logout</button>
+                            </div>
+                        ) : (
+                            <>
+                                <button onClick={() => setIsAuthOpen(true)} className="btn-login-header">Login</button>
+                                <button onClick={() => setIsAuthOpen(true)} className="btn-get-started btn-signup-header">Sign Up</button>
+                            </>
+                        )}
                         <Link to="/mental" className="btn-get-started">Get Started</Link>
                     </nav>
                 </div>
             </header>
+
+            <AuthModal
+                isOpen={isAuthOpen}
+                onClose={() => setIsAuthOpen(false)}
+                onAuthSuccess={(userData) => setUser(userData)}
+            />
 
             <main>
                 <section className="hero-simple">

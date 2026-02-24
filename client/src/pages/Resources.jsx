@@ -1,8 +1,7 @@
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function Resources()
-{
-    const navigate = useNavigate();
+export default function Resources() {
+  const navigate = useNavigate();
 
   const resources = [
     {
@@ -41,49 +40,48 @@ export default function Resources()
       icon: "⏰"
     }
   ];
-    return(
-        <div>
-    <div className ="home-page dreamy-page">
-         <div className="dreamy-bg-container">
-                <div className="cloud cloud-1"></div>
-                <div className="cloud cloud-2"></div>
-                <div className="cloud cloud-3"></div>
-                <div className="stars-layer"></div>
+  return (
+    <div>
+      <div className="home-page dreamy-page">
+        <div className="dreamy-bg-container">
+          <div className="cloud cloud-1"></div>
+          <div className="cloud cloud-2"></div>
+          <div className="cloud cloud-3"></div>
+          <div className="stars-layer"></div>
+        </div>
+        <header className="front-page-header">
+          <div className="container header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="logo-group">
+              <span className="heart-logo">💙</span>
+              <span className="logo-text">CareX</span>
             </div>
-         <header className="front-page-header">
-                <div className="container header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div className="logo-group">
-                        <span className="heart-logo">💙</span>
-                        <span className="logo-text">CareX</span>
+            <nav className="front-nav">
+              <Link to="/">Home</Link>
+              <Link to="/resources">Resources</Link>
+              <a href="#about">About</a>
+              <Link to="/mental" className="btn-get-started">Get Started</Link>
+            </nav>
+            <div className="resources-page dreamy-page">
+              <Navbar user={user} handleLogout={handleLogout} />
+              <div className="resource-page">
+                <div className="resources-container">
+                  {resources.map((item, index) => (
+                    <div key={index} className="resource-card">
+
+                      <div className="resource-left">
+                        <div className="resource-icon">{item.icon}</div>
+                        <div>
+                          <h3>{item.title}</h3>
+                          <p>{item.description}</p>
+                        </div>
+                      </div>
+
+                      <div className="resource-arrow">›</div>
+
                     </div>
-                    <nav className="front-nav">
-                        <Link to="/">Home</Link>
-                        <Link to="/resources">Resources</Link>
-                        <a href="#about">About</a>
-                        <Link to="/mental" className="btn-get-started">Get Started</Link>
-                    </nav>
+                  ))}
                 </div>
-            </header>
-        </div>
-               <div className = "resource-page">
-            <div className="resources-container">
-      {resources.map((item, index) => (
-        <div key={index} className="resource-card">
-          
-          <div className="resource-left">
-            <div className="resource-icon">{item.icon}</div>
-            <div>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
+              </div>
             </div>
-          </div>
-
-          <div className="resource-arrow">›</div>
-
-        </div>
-      ))}
-    </div>
-    </div>
-    </div>
-    );
+            );
 }

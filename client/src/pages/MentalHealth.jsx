@@ -20,10 +20,10 @@ import QuickResets from '../components/QuickResets';
 import Appointments from '../components/Appointments';
 import Footer from '../components/Footer';
 
-export default function MentalHealth() {
+export default function MentalHealth({ user, handleLogout }) {
     return (
         <div className="mental-health-page dreamy-page">
-            <Navbar />
+            <Navbar user={user} handleLogout={handleLogout} />
 
             {/* Dreamy Background Elements */}
             <div className="dreamy-bg-container">
