@@ -4,308 +4,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareX Admin Panel</title>
+    <title>CareX | Admin Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .admin-container {
-            max-width: 1200px;
-            margin: 100px auto 40px;
-            padding: 0 20px;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .admin-header h1 {
-            font-family: var(--font-heading);
-            color: var(--text-dark);
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .tab-btn {
-            padding: 12px 25px;
-            border: none;
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: var(--accent-purple);
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-purple);
-        }
-
-        .stat-label {
-            color: var(--text-light);
-            margin-top: 5px;
-        }
-
-        .appointment-table {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .appointment-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .appointment-table th,
-        .appointment-table td {
-            padding: 15px 20px;
-            text-align: left;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .appointment-table th {
-            background: #f8f9fa;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .status-pending {
-            color: #ef6c00;
-        }
-
-        .status-approved {
-            color: #2e7d32;
-        }
-
-        .status-rejected {
-            color: #c62828;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-approve {
-            background: #4caf50;
-            color: white;
-        }
-
-        .btn-reject {
-            background: #f44336;
-            color: white;
-        }
-
-        .btn-small {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .login-section {
-            max-width: 400px;
-            margin: 150px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .login-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-family: var(--font-heading);
-        }
-
-        .professional-form {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        #content-area {
-            display: none;
-        }
-
-        #login-area {
-            display: block;
-        }
-
-        .assign-select {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            min-width: 150px;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">🌿 CareX Admin</div>
-                <div class="nav-links">
-                    <a href="mental.html">Back to Site</a>
-                    <span id="admin-name"></span>
-                    <button id="logout-btn" class="btn btn-outline" onclick="logout()"
-                        style="display:none;">Logout</button>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Login Section -->
-    <div id="login-area" class="login-section">
-        <h2>🔐 Admin Login</h2>
-        <div class="input-group">
-            <label>Email</label>
-            <input type="email" id="login-email" placeholder="admin@carex.com">
-        </div>
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="login-password" placeholder="••••••••">
-        </div>
-        <button class="btn btn-primary" style="width: 100%;" onclick="adminLogin()">Login</button>
-        <p id="login-error" style="color: #c62828; margin-top: 15px; text-align: center;"></p>
+    <!-- Premium Background Decorations -->
+    <div class="bg-decorations">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
     </div>
 
-    <!-- Admin Content -->
-    <div id="content-area" class="admin-container">
-        <div class="admin-header">
-            <h1>📊 Admin Dashboard</h1>
-            <span id="current-date"></span>
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-card">
+            <h2>🔐 Admin Login</h2>
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" id="login-email" placeholder="admin@carex.com">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="login-password" placeholder="••••••••">
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="adminLogin()">Login</button>
+            <p id="login-error" style="color: #e53e3e; margin-top: 20px; font-weight: 600;"></p>
         </div>
+    </div>
 
-        <!-- Stats -->
-        <div class="stats-grid">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">🌿 CareX Admin</div>
+        <nav class="nav-menu">
+            <div class="nav-item">
+                <a class="nav-link active" onclick="showTab('appointments', this)">
+                    📅 Appointments
+                </a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" onclick="showTab('stories', this)">
+                    🌸 Stories <span id="stories-badge" class="status-badge" style="background: var(--accent-purple); color: white; display: none;">0</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" onclick="showTab('professionals', this)">
+                    👨‍⚕️ Professionals
+                </a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="mental.html" class="nav-link">⬅ Back to Site</a>
+            <a onclick="logout()" class="nav-link" style="color: #e53e3e;">🔌 Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <header class="top-bar">
+            <h1>📊 Dashboard Overview</h1>
+            <div class="admin-info">
+                <div class="admin-details" style="text-align: right;">
+                    <div id="admin-name-display" style="font-weight: 700;">Admin</div>
+                    <div style="font-size: 0.8rem; color: var(--text-light);">CareX Super Admin</div>
+                </div>
+                <div class="admin-avatar" id="admin-initials">AD</div>
+            </div>
+        </header>
+
+        <!-- Stats Overview -->
+        <section class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number" id="stat-pending">0</div>
-                <div class="stat-label">Pending</div>
+                <div class="stat-icon">🕒</div>
+                <div class="stat-details">
+                    <h2 id="stat-pending">0</h2>
+                    <p>Pending</p>
+                </div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="stat-approved">0</div>
-                <div class="stat-label">Approved</div>
+                <div class="stat-icon" style="color: #2e7d32; background: rgba(46, 125, 50, 0.1);">✓</div>
+                <div class="stat-details">
+                    <h2 id="stat-approved">0</h2>
+                    <p>Approved</p>
+                </div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="stat-completed">0</div>
-                <div class="stat-label">Completed</div>
+                <div class="stat-icon" style="color: #2b6cb0; background: rgba(43, 108, 176, 0.1);">✨</div>
+                <div class="stat-details">
+                    <h2 id="stat-completed">0</h2>
+                    <p>Completed</p>
+                </div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="stat-professionals">0</div>
-                <div class="stat-label">Professionals</div>
+                <div class="stat-icon" style="color: #9b6dff; background: rgba(155, 109, 255, 0.1);">👨‍⚕️</div>
+                <div class="stat-details">
+                    <h2 id="stat-pros">0</h2>
+                    <p>Professionals</p>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Tabs -->
-        <div class="tab-buttons">
-            <button class="tab-btn active" onclick="showTab('appointments')">📅 Appointments</button>
-            <button class="tab-btn" onclick="showTab('stories')">🌸 Stories <span id="pending-stories-badge"
-                    style="background:#ff5252; color:white; padding:2px 6px; border-radius:10px; font-size:0.7rem; display:none;">0</span></button>
-            <button class="tab-btn" onclick="showTab('professionals')">👨‍⚕️ Professionals</button>
-        </div>
-
-        <!-- Appointments Tab -->
-        <div id="tab-appointments" class="tab-content">
-            <div class="appointment-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Patient</th>
-                            <th>Type</th>
-                            <th>Date & Time</th>
-                            <th>Status</th>
-                            <th>Assign To</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="appointments-body">
-                        <!-- Populated via JS -->
-                    </tbody>
-                </table>
+        <!-- Dynamic Content Tabs -->
+        <section id="tab-appointments" class="tab-content content-card">
+            <div class="header-row">
+                <h3>📅 Appointments Management</h3>
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Search by name or type..." onkeyup="filterAppointments(this.value)">
+                </div>
             </div>
-        </div>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Care Type</th>
+                        <th>Schedule</th>
+                        <th>Status</th>
+                        <th>Assigned Pro</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="appointments-body">
+                    <!-- Loaded via admin.js -->
+                </tbody>
+            </table>
+        </section>
 
-        <!-- Stories Tab -->
-        <div id="tab-stories" class="tab-content" style="display: none;">
-            <div class="appointment-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Read Time</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="stories-admin-body">
-                        <!-- Populated via JS -->
-                    </tbody>
-                </table>
+        <section id="tab-stories" class="tab-content content-card" style="display: none;">
+            <div class="header-row">
+                <h3>🌸 User Stories Moderation</h3>
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Search stories..." onkeyup="filterStories(this.value)">
+                </div>
             </div>
-        </div>
-        <div id="tab-professionals" class="tab-content" style="display: none;">
-            <div class="appointment-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Specialty</th>
-                        </tr>
-                    </thead>
-                    <tbody id="professionals-body">
-                        <!-- Populated via JS -->
-                    </tbody>
-                </table>
-            </div>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Title & Content Preview</th>
+                        <th>Status</th>
+                        <th>Read Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="stories-body">
+                    <!-- Loaded via admin.js -->
+                </tbody>
+            </table>
+        </section>
 
-            <div class="professional-form">
-                <h3>➕ Add New Professional</h3>
+        <section id="tab-professionals" class="tab-content content-card" style="display: none;">
+            <div class="header-row">
+                <h3>👨‍⚕️ Professionals Directory</h3>
+            </div>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Specialty</th>
+                    </tr>
+                </thead>
+                <tbody id="professionals-body">
+                    <!-- Loaded via admin.js -->
+                </tbody>
+            </table>
+
+            <div class="professional-form" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.05);">
+                <h4 style="margin-bottom: 20px;">➕ Register New Professional</h4>
                 <div class="form-row">
                     <div class="input-group">
                         <label>Name</label>
@@ -313,12 +184,12 @@
                     </div>
                     <div class="input-group">
                         <label>Email</label>
-                        <input type="email" id="pro-email" placeholder="doctor@carex.com">
+                        <input type="email" id="pro-email" placeholder="pro@carex.com">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="input-group">
-                        <label>Password</label>
+                        <label>Temporary Password</label>
                         <input type="password" id="pro-password" placeholder="••••••••">
                     </div>
                     <div class="input-group">
@@ -330,286 +201,20 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <label>Specialty</label>
-                    <input type="text" id="pro-specialty" placeholder="Anxiety, Depression, etc.">
+                    <label>Areas of Specialty</label>
+                    <input type="text" id="pro-specialty" placeholder="e.g. Cognitive Behavioral Therapy, Anxiety">
                 </div>
-                <button class="btn btn-primary" onclick="addProfessional()">Add Professional</button>
+                <button class="btn btn-primary" onclick="addProfessional()">Add Professional to Team</button>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
+    <!-- Real-time Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    <script>
-        const API_URL = 'http://localhost:5050/api';
-        let token = localStorage.getItem('adminToken');
-        let professionals = [];
-
-        // Check if already logged in
-        if (token) {
-            checkAuth();
-        }
-
-        async function checkAuth() {
-            try {
-                const res = await fetch(`${API_URL}/auth/me`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const data = await res.json();
-
-                if (data.user && data.user.role === 'admin') {
-                    showDashboard(data.user.name);
-                } else {
-                    localStorage.removeItem('adminToken');
-                    token = null;
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        async function adminLogin() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            try {
-                const res = await fetch(`${API_URL}/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-                const data = await res.json();
-
-                if (data.token && data.user.role === 'admin') {
-                    token = data.token;
-                    localStorage.setItem('adminToken', token);
-                    showDashboard(data.user.name);
-                } else if (data.token) {
-                    document.getElementById('login-error').innerText = 'Access denied. Admin only.';
-                } else {
-                    document.getElementById('login-error').innerText = data.error || 'Login failed';
-                }
-            } catch (err) {
-                document.getElementById('login-error').innerText = 'Connection error';
-            }
-        }
-
-        function showDashboard(name) {
-            document.getElementById('login-area').style.display = 'none';
-            document.getElementById('content-area').style.display = 'block';
-            document.getElementById('admin-name').innerText = `Welcome, ${name}`;
-            document.getElementById('logout-btn').style.display = 'inline-block';
-            document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', {
-                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-            });
-
-            loadAppointments();
-            loadProfessionals();
-            loadAdminStories();
-        }
-
-        function logout() {
-            localStorage.removeItem('adminToken');
-            token = null;
-            location.reload();
-        }
-
-        function showTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-
-            event.target.classList.add('active');
-            document.getElementById(`tab-${tab}`).style.display = 'block';
-        }
-
-        async function loadAppointments() {
-            try {
-                const res = await fetch(`${API_URL}/admin/appointments`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const data = await res.json();
-
-                const tbody = document.getElementById('appointments-body');
-                tbody.innerHTML = data.appointments.map(a => `
-                    <tr>
-                        <td>${a.userId?.name || 'Unknown'}<br><small>${a.userId?.email}</small></td>
-                        <td>${a.type}</td>
-                        <td>${new Date(a.date).toLocaleDateString()} at ${a.time}</td>
-                        <td class="status-${a.status}">${a.status.toUpperCase()}</td>
-                        <td>
-                            ${a.status === 'pending' ? `
-                                <div style="font-size: 0.8rem; margin-bottom: 5px; color: #444;">Requested: <strong>${a.requestedProfessional || 'Any'}</strong></div>
-                                <select class="assign-select" id="assign-${a._id}">
-                                    <option value="">Select...</option>
-                                    ${professionals.map(p => `<option value="${p._id}" ${p.name === a.requestedProfessional ? 'selected' : ''}>${p.name} (${p.role})</option>`).join('')}
-                                </select>
-                            ` : (a.professionalId?.name || '-')}
-                        </td>
-                        <td class="action-buttons">
-                            ${a.status === 'pending' ? `
-                                <button class="btn-small btn-approve" onclick="updateAppointment('${a._id}', 'approved')">✓ Approve</button>
-                                <button class="btn-small btn-reject" onclick="updateAppointment('${a._id}', 'rejected')">✗ Reject</button>
-                            ` : '-'}
-                        </td>
-                    </tr>
-                `).join('') || '<tr><td colspan="6" style="text-align:center;">No appointments found</td></tr>';
-
-                // Update stats
-                document.getElementById('stat-pending').innerText = data.appointments.filter(a => a.status === 'pending').length;
-                document.getElementById('stat-approved').innerText = data.appointments.filter(a => a.status === 'approved').length;
-                document.getElementById('stat-completed').innerText = data.appointments.filter(a => a.status === 'completed').length;
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        async function loadProfessionals() {
-            try {
-                const res = await fetch(`${API_URL}/admin/professionals`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const data = await res.json();
-                professionals = data.professionals;
-
-                const tbody = document.getElementById('professionals-body');
-                tbody.innerHTML = professionals.map(p => `
-                    <tr>
-                        <td>${p.name}</td>
-                        <td>${p.email}</td>
-                        <td>${p.role}</td>
-                        <td>${p.specialty || '-'}</td>
-                    </tr>
-                `).join('') || '<tr><td colspan="4" style="text-align:center;">No professionals found</td></tr>';
-
-                document.getElementById('stat-professionals').innerText = professionals.length;
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        async function updateAppointment(id, status) {
-            const professionalId = document.getElementById(`assign-${id}`)?.value;
-
-            if (status === 'approved' && !professionalId) {
-                alert('Please select a professional to assign');
-                return;
-            }
-
-            try {
-                const res = await fetch(`${API_URL}/admin/appointments/${id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ status, professionalId, chatEnabled: true, callEnabled: true })
-                });
-
-                if (res.ok) {
-                    alert(`Appointment ${status}!`);
-                    loadAppointments();
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        async function addProfessional() {
-            const name = document.getElementById('pro-name').value;
-            const email = document.getElementById('pro-email').value;
-            const password = document.getElementById('pro-password').value;
-            const role = document.getElementById('pro-role').value;
-            const specialty = document.getElementById('pro-specialty').value;
-
-            if (!name || !email || !password) {
-                alert('Please fill all required fields');
-                return;
-            }
-
-            try {
-                const res = await fetch(`${API_URL}/admin/professionals`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ name, email, password, role, specialty })
-                });
-                const data = await res.json();
-
-                if (res.ok) {
-                    alert('Professional added!');
-                    document.getElementById('pro-name').value = '';
-                    document.getElementById('pro-email').value = '';
-                    document.getElementById('pro-password').value = '';
-                    document.getElementById('pro-specialty').value = '';
-                    loadProfessionals();
-                } else {
-                    alert(data.error);
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-        async function loadAdminStories() {
-            try {
-                const res = await fetch(`${API_URL}/admin/stories`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const data = await res.json();
-
-                const pendingCount = data.filter(s => s.status === 'pending').length;
-                const badge = document.getElementById('pending-stories-badge');
-                if (pendingCount > 0) {
-                    badge.innerText = pendingCount;
-                    badge.style.display = 'inline-block';
-                } else {
-                    badge.style.display = 'none';
-                }
-
-                const tbody = document.getElementById('stories-admin-body');
-                tbody.innerHTML = data.map(s => `
-                    <tr>
-                        <td>${s.userId?.username}<br><small>${s.userId?.email}</small></td>
-                        <td><strong>${s.title}</strong><br><small style="color:#888;">${s.content.substring(0, 50)}...</small></td>
-                        <td class="status-${s.status}">${s.status.toUpperCase()}</td>
-                        <td>${s.readTime}</td>
-                        <td class="action-buttons">
-                            ${s.status === 'pending' ? `
-                                <button class="btn-small btn-approve" onclick="updateStoryStatus('${s._id}', 'approved')">✓ Approve</button>
-                                <button class="btn-small btn-reject" onclick="updateStoryStatus('${s._id}', 'rejected')">✗ Reject</button>
-                            ` : `
-                                <button class="btn-small btn-outline" onclick="updateStoryStatus('${s._id}', 'pending')">↺ Reset</button>
-                            `}
-                        </td>
-                    </tr>
-                `).join('') || '<tr><td colspan="5" style="text-align:center;">No stories found</td></tr>';
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        async function updateStoryStatus(id, status) {
-            try {
-                const res = await fetch(`${API_URL}/admin/stories/${id}/status`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ status })
-                });
-
-                if (res.ok) {
-                    loadAdminStories();
-                } else {
-                    const data = await res.json();
-                    alert(data.error);
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-    </script>
+    <script src="admin.js"></script>
 </body>
 
 </html>

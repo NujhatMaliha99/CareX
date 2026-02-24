@@ -38,14 +38,15 @@ const storySchema = new mongoose.Schema({
         hopeful: { type: Number, default: 0 },
         relatable: { type: Number, default: 0 }
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
     approvedAt: {
         type: Date,
         default: null
     }
-});
+}, { timestamps: true });
+
+// Indexes
+storySchema.index({ status: 1, approvedAt: -1 }); // public feed of approved stories
+storySchema.index({ userId: 1, createdAt: -1 });   // user's own story history
+storySchema.index({ moodTag: 1, status: 1 });       // filter by mood tag
 
 module.exports = mongoose.model('Story', storySchema);
