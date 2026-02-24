@@ -1,18 +1,17 @@
 {
-  "name": "health-pillar-site",
+  "name": "carex-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "CareX Mental Health Platform — Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
@@ -20,7 +19,6 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.6",
     "multer": "^2.0.2",
-    "openai": "^6.16.0",
     "socket.io": "^4.8.3"
   }
 }
