@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 const sounds = [
-    { id: 'rain', name: 'Rain', icon: '🌧️', videoId: 'mPZkdNFkNps' },
-    { id: 'forest', name: 'Forest', icon: '🌲', videoId: 'xNN7iTA57jM' },
-    { id: 'ocean', name: 'Ocean', icon: '🌊', videoId: 'bn9F19Hi1Lk' },
-    { id: 'lofi', name: 'Lofi', icon: '🎧', videoId: 'jfKfPfyJRdk' },
-    { id: 'deep_sleep', name: 'Deep Sleep', icon: '🌙', videoId: 'AV81KkVVTHE' },
-    { id: 'relaxation', name: 'Relaxation', icon: '🧘', videoId: 'bL4S3BwjaiU' }
+    { id: 'rain', name: 'Rain', icon: '🌧️', src: '/sounds/rain.mp3' },
+    { id: 'forest', name: 'Forest', icon: '🌲', src: '/sounds/forest.mp3' },
+    { id: 'ocean', name: 'Ocean', icon: '🌊', src: '/sounds/ocean.mp3' },
+    { id: 'lofi', name: 'Lofi', icon: '🎧', src: '/sounds/lofi.mp3' },
+    { id: 'deep_sleep', name: 'Deep Sleep', icon: '🌙', src: '/sounds/sleep.mp3' },
+    { id: 'relaxation', name: 'Relaxation', icon: '🧘', src: '/sounds/relax.mp3' }
 ];
 
 export default function AudioPlayer() {
@@ -27,7 +27,7 @@ export default function AudioPlayer() {
 
             <div className="sound-grid">
                 {sounds.map(sound => (
-                    <div key={sound.id} className="sound-card" onClick={() => playSound(sound)}>
+                    <div key={sound.id} className={`sound-card ${activeSound?.id === sound.id ? 'active' : ''}`} onClick={() => playSound(sound)}>
                         <span className="sound-icon">{sound.icon}</span>
                         <span>{sound.name}</span>
                     </div>
@@ -35,23 +35,43 @@ export default function AudioPlayer() {
             </div>
 
             {activeSound && (
-                <div className="modal" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div className="modal-content" style={{ background: 'black', color: 'white', width: '90%', maxWidth: '800px', padding: 0 }}>
-                        <div className="modal-header" style={{ padding: '15px', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'space-between' }}>
-                            <h3 style={{ margin: 0, fontSize: '1.2rem' }}>{activeSound.icon} {activeSound.name} Sound</h3>
-                            <span className="close-modal" onClick={closePlayer} style={{ color: 'white', cursor: 'pointer' }}>&times;</span>
-                        </div>
-                        <div className="video-container" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
-                            <iframe
-                                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                                src={`https://www.youtube.com/embed/${activeSound.videoId}?autoplay=1&controls=0&loop=1&playlist=${activeSound.videoId}`}
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
+                <div className="audio-mini-player fade-in" style={{
+                    marginTop: '30px',
+                    padding: '20px',
+                    borderRadius: '20px',
+                    background: 'var(--white-glass)',
+                    border: '1px solid var(--glass-border)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '20px',
+                    justifyContent: 'space-between'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        <span style={{ fontSize: '2rem' }}>{activeSound.icon}</span>
+                        <div>
+                            <h4 style={{ margin: 0 }}>{activeSound.name}</h4>
+                            <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>Now Playing</span>
                         </div>
                     </div>
+
+                    <audio
+                        key={activeSound.id}
+                        controls
+                        autoPlay
+                        loop
+                        style={{ height: '40px', flexGrow: 0.5 }}
+                    >
+                        <source src={activeSound.src} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
+
+                    <button
+                        className="btn btn-outline btn-sm"
+                        onClick={closePlayer}
+                        style={{ borderRadius: '50%', width: '35px', height: '35px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                        &times;
+                    </button>
                 </div>
             )}
         </div>
