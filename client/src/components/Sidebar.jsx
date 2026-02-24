@@ -3,8 +3,8 @@ export default function Sidebar() {
         const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
-            element.style.boxShadow = 'var(--shadow-glow)';
-            setTimeout(() => element.style.boxShadow = 'none', 2000);
+            element.classList.add('section-highlight');
+            setTimeout(() => element.classList.remove('section-highlight'), 2000);
         }
     };
 

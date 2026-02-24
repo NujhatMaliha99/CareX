@@ -33,7 +33,7 @@ export default function MoodTracker() {
             <h2>🌦️ Mental Weather</h2>
             <p className="section-desc">How is your internal sky looking today?</p>
 
-            <div className="weather-options">
+            <div className="weather-grid">
                 {moods.map(m => (
                     <button
                         key={m.id}
@@ -41,7 +41,8 @@ export default function MoodTracker() {
                         onClick={() => handleMoodSelect(m)}
                         title={m.label}
                     >
-                        {m.emoji}
+                        <span className="mood-emoji">{m.emoji}</span>
+                        <span style={{ fontSize: '0.6rem', marginTop: '5px', fontWeight: 700 }}>{m.label}</span>
                     </button>
                 ))}
             </div>
