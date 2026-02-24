@@ -26,17 +26,16 @@ const userSchema = new mongoose.Schema({
     },
     specialty: {
         type: String,
-        default: null  // For doctors/counsellors
+        default: null
     },
     isAvailable: {
         type: Boolean,
         default: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
-});
+}, { timestamps: true });
+
+// Indexes
+userSchema.index({ role: 1, isAvailable: 1 }); // fast professional lookups
 
 // Hash password before saving
 userSchema.pre('save', async function () {
@@ -44,9 +43,8 @@ userSchema.pre('save', async function () {
     this.password = await bcrypt.hash(this.password, 10);
 });
 
-// Compare password method
-userSchema.methods.comparePassword = async function (candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
+userSchema.methods.comparePassword = async function (candidate) {
+    return bcrypt.compare(candidate, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);

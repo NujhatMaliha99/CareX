@@ -9,7 +9,7 @@ const appointmentSchema = new mongoose.Schema({
     professionalId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        default: null  // Assigned by admin
+        default: null
     },
     requestedProfessional: {
         type: String,
@@ -45,14 +45,15 @@ const appointmentSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
     approvedAt: {
         type: Date,
         default: null
     }
-});
+}, { timestamps: true });
+
+// Indexes for common query patterns
+appointmentSchema.index({ userId: 1, createdAt: -1 });       // user's appointment history
+appointmentSchema.index({ professionalId: 1, status: 1 });   // professional's active sessions
+appointmentSchema.index({ status: 1, createdAt: -1 });        // admin view by status
 
 module.exports = mongoose.model('Appointment', appointmentSchema);

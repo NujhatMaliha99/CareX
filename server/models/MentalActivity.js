@@ -28,14 +28,12 @@ const mentalActivitySchema = new mongoose.Schema({
     data: {
         type: mongoose.Schema.Types.Mixed,
         required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
-});
+}, { timestamps: true });
 
-// Index for faster queries
+// Compound index: fast queries for a user's activities by type and date
 mentalActivitySchema.index({ userId: 1, activityType: 1, createdAt: -1 });
+// Index for fetching all activity types for a single user (dashboard/history view)
+mentalActivitySchema.index({ userId: 1, createdAt: -1 });
 
 module.exports = mongoose.model('MentalActivity', mentalActivitySchema);

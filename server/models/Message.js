@@ -29,14 +29,14 @@ const messageSchema = new mongoose.Schema({
         enum: ['text', 'image', 'call-started', 'call-ended'],
         default: 'text'
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
     read: {
         type: Boolean,
         default: false
     }
-});
+}, { timestamps: true });
+
+// Indexes
+messageSchema.index({ appointmentId: 1, createdAt: 1 }); // fetch chat history in order
+messageSchema.index({ receiverId: 1, read: 1 });          // count unread messages
 
 module.exports = mongoose.model('Message', messageSchema);

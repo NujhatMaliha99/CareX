@@ -29,6 +29,9 @@ router.post('/', authenticate, async (req, res) => {
         });
         await appointment.save();
 
+        // Notify admins of new appointment
+        req.io.emit('new-appointment', { appointment });
+
         res.status(201).json({ message: 'Appointment request submitted', appointment });
     } catch (err) {
         console.error('[Appointment] Create error:', err.message);

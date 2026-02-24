@@ -24,8 +24,13 @@ const io = new Server(server, { cors: { origin: '*' } });
 app.use(require('cors')());
 app.use(express.json());
 
-// Serve legacy frontend and uploads
-app.use(express.static(path.join(__dirname, '../client_legacy')));
+// Root → Admin panel (must be before static middleware)
+app.get('/', (req, res) => {
+    res.redirect('/admin.html');
+});
+
+// Serve legacy pages (index disabled — root is admin)
+app.use(express.static(path.join(__dirname, '../client_legacy'), { index: false }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Create uploads dir if missing

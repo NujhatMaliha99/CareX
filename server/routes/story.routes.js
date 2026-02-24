@@ -22,6 +22,9 @@ router.post('/', authenticate, async (req, res) => {
         });
         await story.save();
 
+        // Notify admins of new story
+        req.io.emit('new-story', { story });
+
         res.status(201).json({ message: 'Story submitted for review!', story });
     } catch (err) {
         console.error('[Story] Submit error:', err.message);
