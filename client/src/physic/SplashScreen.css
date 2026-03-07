@@ -1,19 +1,17 @@
-
+/* Splash Screen Container */
 .splash-container {
   height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    180deg,
-    #7fb0ad 0%,
-    #6d8fc5 100%
-  );
+  background: linear-gradient(180deg, #7fb0ad 0%, #6d8fc5 100%);
   overflow: hidden;
+  padding: 0 5vw; /* responsive horizontal padding */
+  box-sizing: border-box;
 }
 
-
+/* Content wrapper */
 .content {
   text-align: center;
   opacity: 0;
@@ -21,29 +19,44 @@
   transition: all 0.8s ease;
 }
 
+/* Show animation */
 .content.show {
   opacity: 1;
   transform: scale(1);
 }
 
-
+/* Logo */
 .logo {
-  width: 140px;
-  margin-bottom: 25px;
+  width: clamp(100px, 20vw, 140px); /* responsive logo */
+  margin-bottom: 2vh;
 }
 
-
+/* Title */
 .title {
-  font-size: 52px;
+  font-size: clamp(36px, 6vw, 52px); /* responsive title */
   font-weight: 700;
   color: white;
   margin: 0;
   letter-spacing: 3px;
 }
 
-
+/* Subtitle */
 .subtitle {
-  font-size: 18px;
+  font-size: clamp(16px, 3vw, 20px); /* responsive subtitle */
   color: rgba(255, 255, 255, 0.9);
-  margin-top: 12px;
+  margin-top: 1vh;
+}
+
+/* Media query for very small screens */
+@media (max-width: 400px) {
+  .logo {
+    width: 100px;
+    margin-bottom: 15px;
+  }
+  .title {
+    font-size: 32px;
+  }
+  .subtitle {
+    font-size: 14px;
+  }
 }
