@@ -40,6 +40,7 @@ export default function Resources() {
       icon: "⏰"
     }
   ];
+
   return (
     <div>
       <div className="home-page dreamy-page">
@@ -61,27 +62,28 @@ export default function Resources() {
               <a href="#about">About</a>
               <Link to="/mental" className="btn-get-started">Get Started</Link>
             </nav>
-            <div className="resources-page dreamy-page">
-              <Navbar user={user} handleLogout={handleLogout} />
-              <div className="resource-page">
-                <div className="resources-container">
-                  {resources.map((item, index) => (
-                    <div key={index} className="resource-card">
+          </div>
+        </header>
 
-                      <div className="resource-left">
-                        <div className="resource-icon">{item.icon}</div>
-                        <div>
-                          <h3>{item.title}</h3>
-                          <p>{item.description}</p>
-                        </div>
-                      </div>
-
-                      <div className="resource-arrow">›</div>
-
+        <div className="resources-page dreamy-page">
+          <div className="resource-page">
+            <div className="resources-container">
+              {resources.map((item, index) => (
+                <div key={index} className="resource-card">
+                  <div className="resource-left">
+                    <div className="resource-icon">{item.icon}</div>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
                     </div>
-                  ))}
+                  </div>
+                  <div className="resource-arrow">›</div>
                 </div>
-              </div>
+              ))}
             </div>
-            );
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -7,7 +7,7 @@ const sleepTips = [
     { id: 4, text: "🕯️ Low warm lighting in the evening.", icon: "🏮" }
 ];
 
-export default function SleepReset() {
+export default function SleepReset({ onComplete }) {
     const [showGuide, setShowGuide] = useState(false);
 
     return (
@@ -47,7 +47,10 @@ export default function SleepReset() {
                             <p>2. 🌬️ **Box Breathing**: 4 counts in, 4 hold, 4 out, 4 hold.</p>
                             <p>3. 🛀 **Warm Prep**: A warm shower or tea signals your body it's time to rest.</p>
                             <p>4. 📵 **Digital Boundary**: Turn off all notifications now.</p>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '20px' }} onClick={() => setShowGuide(false)}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '20px' }} onClick={() => {
+                                setShowGuide(false);
+                                if (onComplete) onComplete();
+                            }}>
                                 Ready for Sleep
                             </button>
                         </div>

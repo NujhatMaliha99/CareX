@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function ReleaseThoughts() {
+export default function ReleaseThoughts({ onComplete }) {
     const [thought, setThought] = useState('');
     const [isReleasing, setIsReleasing] = useState(false);
 
@@ -11,6 +11,7 @@ export default function ReleaseThoughts() {
         setTimeout(() => {
             setThought('');
             setIsReleasing(false);
+            if (onComplete) onComplete();
             alert('Your thoughts have been released. Deep breath. 🕊️');
         }, 1000);
     };

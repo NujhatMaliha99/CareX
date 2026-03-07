@@ -1,13 +1,61 @@
 import { useState } from 'react';
 
 const resets = [
-    { id: 'count', title: '5-4-3-2-1 Grounding', icon: '🖐️', desc: '5 things see, 4 feel, 3 hear, 2 smell, 1 taste.' },
-    { id: 'sip', title: 'Mindful Hydration', icon: '💧', desc: 'Take a slow sip of water. Feel it hydrate you.' },
-    { id: 'stretch', title: 'Gentle Stretch', icon: '🧘', desc: 'Roll your shoulders, tilt your neck slowly.' },
-    { id: 'nature', title: 'Nature Break', icon: '🌿', desc: 'Look outside for 2 mins. Notice colors and life.' }
+    { 
+        id: 'count', 
+        title: '5-4-3-2-1 Grounding', 
+        icon: '🖐️', 
+        desc: (
+            <div className="grounding-exercise">
+                <p><strong>5</strong> things you can <em>see</em></p>
+                <p><strong>4</strong> things you can <em>touch</em></p>
+                <p><strong>3</strong> things you can <em>hear</em></p>
+                <p><strong>2</strong> things you can <em>smell</em></p>
+                <p><strong>1</strong> thing you can <em>taste</em></p>
+            </div>
+        )
+    },
+    { 
+        id: 'stretch', 
+        title: '30-Second Stretch', 
+        icon: '🧘', 
+        desc: (
+            <div className="stretch-guide">
+                <p>🙆 Raise arms overhead, stretch tall</p>
+                <p>🔄 Roll shoulders back 5 times</p>
+                <p>↩️ Gentle neck rolls, both sides</p>
+                <p>🧘 Deep breath in... and out</p>
+            </div>
+        )
+    },
+    { 
+        id: 'water', 
+        title: 'Hydration Check', 
+        icon: '💧', 
+        desc: (
+            <div className="water-reminder" style={{ textAlign: 'center' }}>
+                <p style={{ fontSize: '3rem', margin: '10px 0' }}>💧</p>
+                <p>Take a slow sip of water.<br/>Feel it hydrate your body.</p>
+                <p><em>Dehydration affects mood and energy!</em></p>
+            </div>
+        )
+    },
+    { 
+        id: 'look', 
+        title: 'Nature Break', 
+        icon: '🌿', 
+        desc: (
+            <div className="nature-break" style={{ textAlign: 'center' }}>
+                <p style={{ fontSize: '3rem', margin: '10px 0' }}>🪟🌳</p>
+                <p>Look outside for 2 minutes.</p>
+                <p>Notice colors, movement, light.</p>
+                <p><em>Nature reduces stress hormones.</em></p>
+            </div>
+        )
+    }
 ];
 
-export default function QuickResets() {
+export default function QuickResets({ onComplete }) {
     const [activeReset, setActiveReset] = useState(null);
 
     return (
@@ -43,7 +91,10 @@ export default function QuickResets() {
                         </div>
                         <div className="modal-inner-padding">
                             <p>{activeReset.desc}</p>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '20px' }} onClick={() => setActiveReset(null)}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '20px' }} onClick={() => {
+                                setActiveReset(null);
+                                if (onComplete) onComplete();
+                            }}>
                                 Finished
                             </button>
                         </div>

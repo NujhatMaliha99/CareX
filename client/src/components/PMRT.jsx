@@ -12,7 +12,7 @@ const pmrtParts = [
     { id: 'head', name: 'Face', ids: ['pmrt-head'], instruction: 'Scrunch your face... eyes tight, jaw clenched...' }
 ];
 
-export default function PMRT() {
+export default function PMRT({ onComplete }) {
     const [isActive, setIsActive] = useState(false);
     const [currentPartIndex, setCurrentPartIndex] = useState(-1);
     const [phase, setPhase] = useState(''); // 'tense', 'release'
@@ -80,6 +80,7 @@ export default function PMRT() {
             setInstruction({ title: "Session Complete", text: "You are safe. Your body is lighter now 💜" });
             setPhase('');
             setCurrentPartIndex(-1);
+            if (onComplete) onComplete();
 
         } catch (err) {
             if (err.message !== 'Aborted') console.error(err);
