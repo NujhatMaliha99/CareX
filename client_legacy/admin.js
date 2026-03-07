@@ -1,11 +1,11 @@
-const API_URL = 'http://localhost:5050/api';
+const API_URL = 'http://localhost:3000/api';
 let token = localStorage.getItem('adminToken');
 let professionals = [];
 let allAppointments = [];
 let allStories = [];
 
 // Initialize Socket.io
-const socket = io('http://localhost:5050');
+const socket = io('http://localhost:3000');
 
 // --- Real-time Updates ---
 socket.on('connect', () => console.log('✅ Connected to Socket.io server'));
@@ -27,6 +27,36 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         showLoginOverlay();
     }
+
+    // --- Mobile Sidebar Toggle ---
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+        });
+    }
+
+    // Close sidebar when clicking outside or on a link (on mobile)
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1024 && 
+            sidebar.classList.contains('active') && 
+            !sidebar.contains(e.target) && 
+            e.target !== mobileMenuToggle) {
+            sidebar.classList.remove('active');
+        }
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.remove('active');
+            }
+        });
+    });
 });
 
 async function checkAuth() {

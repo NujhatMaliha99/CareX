@@ -65,6 +65,7 @@
     <!-- Main Content Area -->
     <main class="main-content">
         <header class="top-bar">
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
             <h1>📊 Dashboard Overview</h1>
             <div class="admin-info">
                 <div class="admin-details" style="text-align: right;">
@@ -116,21 +117,23 @@
                     <input type="text" class="search-input" placeholder="Search by name or type..." onkeyup="filterAppointments(this.value)">
                 </div>
             </div>
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Patient</th>
-                        <th>Care Type</th>
-                        <th>Schedule</th>
-                        <th>Status</th>
-                        <th>Assigned Pro</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="appointments-body">
-                    <!-- Loaded via admin.js -->
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Care Type</th>
+                            <th>Schedule</th>
+                            <th>Status</th>
+                            <th>Assigned Pro</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointments-body">
+                        <!-- Loaded via admin.js -->
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <section id="tab-stories" class="tab-content content-card" style="display: none;">
@@ -141,39 +144,43 @@
                     <input type="text" class="search-input" placeholder="Search stories..." onkeyup="filterStories(this.value)">
                 </div>
             </div>
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Author</th>
-                        <th>Title & Content Preview</th>
-                        <th>Status</th>
-                        <th>Read Time</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="stories-body">
-                    <!-- Loaded via admin.js -->
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Author</th>
+                            <th>Title & Content Preview</th>
+                            <th>Status</th>
+                            <th>Read Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stories-body">
+                        <!-- Loaded via admin.js -->
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <section id="tab-professionals" class="tab-content content-card" style="display: none;">
             <div class="header-row">
                 <h3>👨‍⚕️ Professionals Directory</h3>
             </div>
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Specialty</th>
-                    </tr>
-                </thead>
-                <tbody id="professionals-body">
-                    <!-- Loaded via admin.js -->
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Specialty</th>
+                        </tr>
+                    </thead>
+                    <tbody id="professionals-body">
+                        <!-- Loaded via admin.js -->
+                    </tbody>
+                </table>
+            </div>
 
             <div class="professional-form" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.05);">
                 <h4 style="margin-bottom: 20px;">➕ Register New Professional</h4>

@@ -1,6 +1,6 @@
-import { LucideWind, LucideHeadphones, LucideCalendar } from 'lucide-react';
+import { LucideWind, LucideHeadphones, LucideCalendar, LucideAlertCircle } from 'lucide-react';
 
-export default function QuickActionBar() {
+export default function QuickActionBar({ onEmergency }) {
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
         if (element) {
@@ -10,6 +10,10 @@ export default function QuickActionBar() {
 
     return (
         <div className="quick-action-bar">
+            <button className="action-btn emergency-btn" onClick={onEmergency} title="Emergency Support">
+                <LucideAlertCircle size={20} color="#ff4d4d" />
+                <span style={{ marginLeft: '8px', color: '#ff4d4d', fontWeight: 'bold' }}>Emergency Button</span>
+            </button>
             <button className="action-btn" onClick={() => scrollToSection('panic-rescue')} title="Quick Calm">
                 <LucideWind size={20} />
             </button>

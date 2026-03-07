@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import SplashScreen from "./physic/SplashScreen";
 import Resources from './pages/Resources';
+import './responsive.css';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
