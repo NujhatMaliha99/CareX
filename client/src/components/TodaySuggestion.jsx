@@ -31,7 +31,7 @@ export default function TodaySuggestion({ onStart }) {
                     </p>
                 </div>
             </div>
-            <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+            <div className="suggestion-actions" style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
                 <button className="btn btn-primary btn-sm" onClick={() => handleStart(suggestion.target)}>Start Now</button>
                 <button className="btn btn-outline btn-sm" onClick={() => handleStart('wellness-wheel')}>🎡 Spin Now</button>
             </div>

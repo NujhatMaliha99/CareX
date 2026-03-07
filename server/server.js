@@ -70,7 +70,7 @@ io.on('connection', (socket) => {
 });
 
 // --- Start ---
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 3000;
 
 connectDB().then(() => {
     server.listen(PORT, () => console.log(`🚀 CareX Backend running on port ${PORT}`));

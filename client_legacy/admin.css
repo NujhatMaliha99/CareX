@@ -449,3 +449,120 @@ body {
     border-color: var(--accent-purple);
     outline: none;
 }
+
+/* --- Responsive Styles --- */
+
+.mobile-menu-toggle {
+    display: none;
+    background: var(--accent-purple);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(155, 109, 255, 0.2);
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+/* Tablet Layout (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+    :root {
+        --sidebar-width: 250px;
+    }
+
+    .sidebar {
+        left: -300px; /* Hide by default */
+        top: 0;
+        bottom: 0;
+        border-radius: 0 30px 30px 0;
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        width: var(--sidebar-width);
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 30px;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .top-bar {
+        gap: 15px;
+    }
+
+    .top-bar h1 {
+        font-size: 1.5rem;
+        flex: 1;
+    }
+}
+
+/* Mobile Layout (≤ 768px) */
+@media screen and (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .search-wrapper {
+        width: 100%;
+    }
+
+    .login-card {
+        width: 95%;
+        padding: 30px;
+        border-radius: 30px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .professional-form {
+        padding: 20px;
+    }
+}
+
+/* Small Mobile (≤ 480px) */
+@media screen and (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-info {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    .top-bar h1 {
+        width: 100%;
+    }
+}

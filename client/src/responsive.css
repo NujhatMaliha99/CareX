@@ -1,0 +1,185 @@
+/* --- Responsive Mental Health Page --- */
+@media (max-width: 1024px) {
+    .mental-layout {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    .mental-sidebar {
+        position: sticky;
+        top: 60px;
+        height: auto !important;
+        padding: 10px !important;
+        z-index: 1000;
+        margin-bottom: 25px;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(20px);
+        border-radius: 25px !important;
+        width: calc(100% + 20px);
+        margin-left: -10px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .sidebar-nav {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        padding: 5px 10px !important;
+        justify-content: flex-start !important;
+        gap: 15px !important;
+        display: flex !important;
+        width: 100% !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    
+    .sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sidebar-nav a {
+        width: auto !important;
+        white-space: nowrap !important;
+        padding: 12px 24px !important;
+        font-size: 0.95rem !important;
+        margin-bottom: 0 !important;
+        transform: none !important;
+        background: var(--white-glass) !important;
+        border: 1px solid var(--glass-border) !important;
+        border-radius: 50px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        color: var(--text-dark) !important;
+        font-weight: 700 !important;
+    }
+
+    .nav-progress-check {
+        margin-left: 8px;
+        font-size: 0.8rem;
+    }
+
+    .nav-section-title {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-top: 40px !important;
+    }
+
+    .disclaimer-banner {
+        padding: 12px 15px !important;
+        margin-top: 10px !important;
+        font-size: 0.85rem !important;
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+
+    .little-banner {
+        padding: 50px 25px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .little-banner h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.2;
+    }
+
+    .wheel-wrapper {
+        width: 300px !important;
+        height: 300px !important;
+        margin: 30px auto !important;
+    }
+
+    .weather-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    /* Fixed Floating Action Bar to avoid overlapping nav pills */
+    .quick-action-bar {
+        bottom: 120px !important;
+        right: 15px !important;
+        gap: 12px !important;
+        z-index: 1010 !important;
+    }
+    
+    .ai-chat-fab {
+        bottom: 30px !important;
+        right: 15px !important;
+        width: 70px !important;
+        height: 70px !important;
+        z-index: 1010 !important;
+    }
+
+    .ai-chat-window {
+        width: 100% !important;
+        height: 100% !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        left: 0 !important;
+        border-radius: 0 !important;
+        z-index: 2000 !important;
+    }
+
+    .suggestion-actions {
+        flex-direction: column !important;
+        width: 100%;
+    }
+
+    .suggestion-actions .btn {
+        width: 100% !important;
+        padding: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px !important;
+    }
+
+    .little-banner h1 {
+        font-size: 1.4rem !important;
+    }
+
+    .weather-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .wheel-wrapper {
+        width: 270px !important;
+        height: 270px !important;
+    }
+
+    .wheel-segment span {
+        font-size: 0.7rem !important;
+        max-width: 70px !important;
+    }
+
+    .sidebar-nav a {
+        padding: 10px 18px !important;
+        font-size: 0.85rem !important;
+    }
+
+    .mental-content {
+        padding-bottom: 120px !important; /* Space for FABs */
+    }
+    
+    /* Ensure no overlap with "Spin Now" in TodaySuggestion */
+    #today-suggestion {
+        margin-bottom: 40px !important;
+    }
+}
+
+/* Specific Taller Devices (iPhone 14 / Galaxy A) */
+@media (min-height: 800px) and (max-width: 480px) {
+    .little-banner {
+        padding: 60px 25px !important;
+    }
+    
+    .mental-layout {
+        gap: 40px !important;
+    }
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthModal from '../components/AuthModal';
+import Navbar from '../components/Navbar';
 
 export default function Home({ user, setUser, handleLogout }) {
     const navigate = useNavigate();
@@ -16,31 +17,7 @@ export default function Home({ user, setUser, handleLogout }) {
                 <div className="stars-layer"></div>
             </div>
 
-            <header className="front-page-header">
-                <div className="container header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div className="logo-group">
-                        <span className="heart-logo">💙</span>
-                        <span className="logo-text">CareX</span>
-                    </div>
-                    <nav className="front-nav">
-                        <Link to="/">Home</Link>
-                        <Link to="/resources">Resources</Link>
-                        <a href="#about">About</a>
-                        {user ? (
-                            <div className="user-profile-nav">
-                                <span className="user-greeting">Hi, {user.name.split(' ')[0]} 👋</span>
-                                <button onClick={handleLogout} className="btn-logout-minimal">Logout</button>
-                            </div>
-                        ) : (
-                            <>
-                                <button onClick={() => setIsAuthOpen(true)} className="btn-login-header">Login</button>
-                                <button onClick={() => setIsAuthOpen(true)} className="btn-get-started btn-signup-header">Sign Up</button>
-                            </>
-                        )}
-                        <Link to="/mental" className="btn-get-started">Get Started</Link>
-                    </nav>
-                </div>
-            </header>
+            <Navbar user={user} handleLogout={handleLogout} transparent={true} onLoginClick={() => setIsAuthOpen(true)} />
 
             <AuthModal
                 isOpen={isAuthOpen}
@@ -53,6 +30,10 @@ export default function Home({ user, setUser, handleLogout }) {
                     <div className="container text-center">
                         <h1 className="welcome-title fade-in">Welcome to CareX</h1>
                         <p className="hero-subtitle fade-in delay-1">Your simple hub for mind, body, and daily care.</p>
+                        <div className="home-cta-buttons fade-in delay-2">
+                            <button onClick={() => setIsAuthOpen(true)} className="btn btn-primary">Get Started</button>
+                            <Link to="/mental" className="btn btn-outline">Explore Mental Health</Link>
+                        </div>
                     </div>
                 </section>
 
