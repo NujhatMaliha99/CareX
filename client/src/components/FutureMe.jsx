@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function FutureMe() {
+export default function FutureMe({ onComplete }) {
     const [letters, setLetters] = useState([]);
     const [content, setContent] = useState('');
     const [lockDate, setLockDate] = useState('');
@@ -24,6 +24,7 @@ export default function FutureMe() {
         localStorage.setItem('futureLetters', JSON.stringify(updated));
         setContent('');
         setLockDate('');
+        if (onComplete) onComplete();
         alert('Letter sealed and sent to the future! ✉️');
     };
 

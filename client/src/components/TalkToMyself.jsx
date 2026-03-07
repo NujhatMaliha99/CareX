@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function TalkToMyself() {
+export default function TalkToMyself({ onComplete }) {
     const [entries, setEntries] = useState([]);
     const [note, setNote] = useState('');
 
@@ -20,6 +20,7 @@ export default function TalkToMyself() {
         setEntries(updated);
         localStorage.setItem('journalEntries', JSON.stringify(updated));
         setNote('');
+        if (onComplete) onComplete();
         alert('Entry saved to your private journal. 📝');
     };
 

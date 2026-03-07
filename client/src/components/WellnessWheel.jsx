@@ -49,10 +49,18 @@ const wheelActions = {
     }
 };
 
-export default function WellnessWheel() {
+export default function WellnessWheel({ onComplete }) {
     const [isSpinning, setIsSpinning] = useState(false);
     const [rotation, setRotation] = useState(0);
     const [result, setResult] = useState(null);
+    const [rescueMode, setRescueMode] = useState(false);
+
+    const scrollToSection = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     const spinWheel = () => {
         if (isSpinning) return;
@@ -60,34 +68,33 @@ export default function WellnessWheel() {
         setIsSpinning(true);
         setResult(null);
 
-        // Random spin calculation
-        // 8 segments = 45 deg each
-        // Spin at least 5 rotations (1800deg) + random
         const randomDeg = Math.floor(1800 + Math.random() * 2000);
         const newRotation = rotation + randomDeg;
         setRotation(newRotation);
 
-        // Haptic Feedback
         if (navigator.vibrate) navigator.vibrate(50);
 
         setTimeout(() => {
             setIsSpinning(false);
             if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
 
-            // Calculate index
             const actualDeg = newRotation % 360;
-            // Segment 0 is at top? offset issues handled by simple math logic logic:
-            // We need to map the final angle to the segment index.
-            // Assuming 0deg is top, segments are laid out clockwise?
-            // Let's rely on the visual match for now or refine mapping.
             const segmentIndex = Math.floor((360 - actualDeg + 22.5) % 360 / 45);
 
             const segment = wheelSegments[segmentIndex] || wheelSegments[0];
             const action = wheelActions[segment.action] || wheelActions.breathe;
 
-            setResult(action);
+            setResult({ ...action, target: segment.action === 'ground' ? 'need-a-moment' : segment.action === 'talk' ? 'appointments' : segment.action === 'anxiety' ? 'explore-mental-health' : segment.action === 'sleep' ? 'sleep-reset' : segment.action === 'release' ? 'release-thoughts' : 'panic-rescue' });
 
-        }, 5000); // 5s match CSS transition
+        }, 5000);
+    };
+
+    const executeAction = () => {
+        if (result && result.target) {
+            scrollToSection(result.target);
+            if (onComplete) onComplete();
+            setResult(null);
+        }
     };
 
     return (
@@ -95,6 +102,15 @@ export default function WellnessWheel() {
             <div className="text-center">
                 <h2>Wheel of Wellness</h2>
                 <p className="section-desc">Not sure what you need right now? Spin for a gentle suggestion.</p>
+                
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '10px' }}>
+                    <span style={{ fontSize: '0.9rem', opacity: rescueMode ? 0.5 : 1 }}>Standard</span>
+                    <label className="switch">
+                        <input type="checkbox" checked={rescueMode} onChange={(e) => setRescueMode(e.target.checked)} />
+                        <span className="slider round"></span>
+                    </label>
+                    <span style={{ fontSize: '0.9rem', color: rescueMode ? 'var(--accent-orange)' : 'inherit', fontWeight: rescueMode ? 700 : 400 }}>Mood Rescue</span>
+                </div>
             </div>
 
             <div className="wheel-outer-container">
@@ -131,11 +147,11 @@ export default function WellnessWheel() {
 
             {result && (
                 <div id="wheel-result" className="wheel-result" style={{ display: 'block' }}>
-                    <h3>You got: <span id="result-title">{result.title}</span></h3>
+                    <h3>You got: <span id="result-title" style={{ color: 'var(--accent-purple)' }}>{result.title}</span></h3>
                     <p>{result.desc}</p>
                     <div className="wheel-result-buttons">
-                        <button className="btn btn-primary">Start Activity</button>
-                        <button className="btn btn-outline" onClick={() => setResult(null)}>Close</button>
+                        <button className="btn btn-primary" onClick={executeAction}>Start Now</button>
+                        <button className="btn btn-outline" onClick={() => setResult(null)}>Save for Later</button>
                     </div>
                 </div>
             )}

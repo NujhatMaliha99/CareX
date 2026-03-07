@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function FocusTimer() {
+export default function FocusTimer({ onComplete }) {
     const [seconds, setSeconds] = useState(25 * 60);
     const [isActive, setIsActive] = useState(false);
     const [sessions, setSessions] = useState(0);
@@ -18,6 +18,7 @@ export default function FocusTimer() {
                         clearInterval(intervalRef.current);
                         setIsActive(false);
                         setSessions(s => s + 1);
+                        if (onComplete) onComplete();
                         alert('Focus session complete! Take a break. ☕');
                         return 25 * 60;
                     }

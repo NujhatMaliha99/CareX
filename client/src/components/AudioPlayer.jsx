@@ -9,11 +9,12 @@ const sounds = [
     { id: 'relaxation', name: 'Relaxation', icon: '🧘', src: '/sounds/relax.mp3' }
 ];
 
-export default function AudioPlayer() {
+export default function AudioPlayer({ onComplete }) {
     const [activeSound, setActiveSound] = useState(null);
 
     const playSound = (sound) => {
         setActiveSound(sound);
+        if (onComplete) onComplete();
     };
 
     const closePlayer = () => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function ThoughtReframe() {
+export default function ThoughtReframe({ onComplete }) {
     const [thought, setThought] = useState('');
     const [reframe, setReframe] = useState('');
     const [loading, setLoading] = useState(false);
@@ -12,9 +12,11 @@ export default function ThoughtReframe() {
         try {
             const response = await axios.post('/api/ai/reframe', { thought });
             setReframe(response.data.reframe);
+            if (onComplete) onComplete();
         } catch (error) {
             console.error('Reframe failed:', error);
             setReframe('I am worth more than my negative thoughts. I can handle this with patience.');
+            if (onComplete) onComplete();
         } finally {
             setLoading(false);
         }

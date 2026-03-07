@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function BreatheCircle() {
+export default function BreatheCircle({ onNeedHelp, onComplete }) {
     const [isActive, setIsActive] = useState(false);
     const [stageText, setStageText] = useState("Ready?");
     const [timer, setTimer] = useState(5);
@@ -56,6 +56,7 @@ export default function BreatheCircle() {
                 setStageText("Well done! 💜");
                 setTimer("✓");
                 setBreathingClass("");
+                if (onComplete) onComplete();
             }
         }, 1000);
     };
@@ -68,7 +69,7 @@ export default function BreatheCircle() {
         <div className="worksheet-card emergency-card fade-in" id="panic-rescue">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h2>Panic Rescue</h2>
-                <button className="btn btn-emergency-alarm" onClick={() => alert('Call 988 or Local Emergency Services')}>🚨 Need Help?</button>
+                <button className="btn btn-emergency-alarm" onClick={onNeedHelp}>🚨 Need Help?</button>
             </div>
             <p className="section-desc">You are safe. We are right here with you. Focus on the circle.</p>
 
