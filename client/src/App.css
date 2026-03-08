@@ -1,42 +1,210 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* ===================== */
+/* HERO SECTION */
+/* ===================== */
+
+.hygiene-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-content h1 {
+  font-size: 36px;
+  color: #2d2d2d;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.hero-button {
+  padding: 12px 30px;
+  background: #6c8cff;
+  color: white;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.hero-button:hover {
+  background: #5777d1;
+}
+
+/* ===================== */
+/* SLIDESHOW */
+/* ===================== */
+
+.slideshow-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.slideshow-container {
+  background: white;
+  border-radius: 15px;
+  padding: 40px 30px;
+  max-width: 500px;
+  width: 100%;
   text-align: center;
+  position: relative;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.slide h2 {
+  font-size: 24px;
+  margin: 20px 0 10px;
+  color: #2d2d2d;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.slide p {
+  font-size: 16px;
+  color: #555;
+}
+
+.slideshow-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.slide-nav {
+  padding: 8px 20px;
+  border-radius: 20px;
+  background: #6c8cff;
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.slide-nav:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.slide-nav:hover:enabled {
+  background: #5777d1;
+}
+
+.close-slideshow {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
+}
+
+/* ===================== */
+/* MODAL (Learn More) */
+/* ===================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  text-align: left;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
+}
+
+.modal-details {
+  margin-top: 15px;
+}
+
+.modal-line {
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #555;
+}
+
+/* ===================== */
+/* CATEGORY ICONS */
+/* ===================== */
+
+.category-icon {
+  font-size: 36px;
+  color: #6c8cff;
+  margin-bottom: 10px;
+}
+
+/* ===================== */
+/* TIPS ICONS */
+/* ===================== */
+
+.tip-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+/* ===================== */
+/* TRACKER BUTTON */
+/* ===================== */
+
+.tracker-button {
+  margin-top: 15px;
+  padding: 10px 25px;
+  border-radius: 25px;
+  background: #2e6b58;
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.tracker-button:hover {
+  background: #265046;
+}
+
+/* ===================== */
+/* RESPONSIVE GRID FIX */
+/* ===================== */
+
+@media (max-width: 768px) {
+  .categories-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
-  to {
-    transform: rotate(360deg);
+
+  .tips-grid {
+    flex-direction: column;
+    align-items: center;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
