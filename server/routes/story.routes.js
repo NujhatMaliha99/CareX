@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Story = require('../models/Story');
 const { authenticate } = require('../middleware/auth');
+const { upload } = require('../config/cloudinary');
 
 // POST /api/stories — Submit a story (requires login, goes into moderation)
-router.post('/', authenticate, async (req, res) => {
+router.post('/', authenticate, upload.single('image'), async (req, res) => {
     try {
         const { title, content, moodTag, isAnonymous } = req.body;
+        const imageUrl = req.file ? req.file.path : null;
 
         const words = content.trim().split(/\s+/).length;
         const readTime = `${Math.ceil(words / 200)} min read`;
@@ -17,6 +19,7 @@ router.post('/', authenticate, async (req, res) => {
             content,
             moodTag,
             isAnonymous,
+            imageUrl,
             readTime,
             status: 'pending'
         });

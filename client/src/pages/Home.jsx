@@ -30,9 +30,9 @@ export default function Home({ user, setUser, handleLogout }) {
                     <div className="container text-center">
                         <h1 className="welcome-title fade-in">Welcome to CareX</h1>
                         <p className="hero-subtitle fade-in delay-1">Your simple hub for mind, body, and daily care.</p>
-                        <div className="home-cta-buttons fade-in delay-2">
+                        
+                        <div className="home-cta-buttons fade-in delay-2" style={{ marginTop: '30px' }}>
                             <button onClick={() => setIsAuthOpen(true)} className="btn btn-primary">Get Started</button>
-                            <Link to="/mental" className="btn btn-outline">Explore Mental Health</Link>
                         </div>
                     </div>
                 </section>
