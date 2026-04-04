@@ -61,6 +61,7 @@ app.use('/api/stories', storyRoutes);
 app.use('/api/mental-activity', activityRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/hygiene', hygieneRoutes);
+app.use('/api/ai', require('./routes/ai.routes'));
 
 // ---------------- HEALTH TRACKING APIs ----------------
 
