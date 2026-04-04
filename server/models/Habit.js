@@ -7,4 +7,4 @@ const HabitSchema  = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Habit", habitSchema);
+module.exports = mongoose.model("Habit", HabitSchema);
