@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Appointments({ onComplete }) {
@@ -10,7 +10,25 @@ export default function Appointments({ onComplete }) {
         notes: ''
     });
     const [loading, setLoading] = useState(false);
-    const [appointments, setAppointments] = useState(JSON.parse(localStorage.getItem('appointments') || '[]'));
+    const [appointments, setAppointments] = useState([]);
+
+    useEffect(() => {
+        fetchAppointments();
+    }, []);
+
+    const fetchAppointments = async () => {
+        const token = localStorage.getItem('userToken');
+        if (!token) return;
+
+        try {
+            const res = await axios.get('http://localhost:3000/api/appointments', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            setAppointments(res.data.appointments);
+        } catch (err) {
+            console.error("Failed to fetch appointments", err);
+        }
+    };
 
     const professionals = [
         {
@@ -31,20 +49,30 @@ export default function Appointments({ onComplete }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('userToken');
+        if (!token) {
+            alert('Please login to book an appointment.');
+            return;
+        }
+
         setLoading(true);
         try {
-            const newAppointment = {
-                id: Date.now(),
+            // Map service name to enum type expected by backend
+            const type = formData.service.includes('Psychiatrist') ? 'Psychiatrist' : 'Counselling';
+
+            const res = await axios.post('http://localhost:3000/api/appointments', {
                 ...formData,
-                status: 'pending'
-            };
-            const updated = [newAppointment, ...appointments];
-            setAppointments(updated);
-            localStorage.setItem('appointments', JSON.stringify(updated));
+                type
+            }, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
             alert('Appointment request submitted! 📅');
             setFormData({ ...formData, date: '', notes: '' });
+            fetchAppointments(); // Refresh list from server
         } catch (error) {
-            alert('Submission failed.');
+            console.error("Submission failed", error);
+            alert(error.response?.data?.error || 'Submission failed.');
         } finally {
             setLoading(false);
             if (onComplete) onComplete();
@@ -128,7 +156,7 @@ export default function Appointments({ onComplete }) {
                     <h3>Your Appointments</h3>
                     <div className="appointment-list" style={{ marginTop: '15px' }}>
                         {appointments.map(a => (
-                            <div key={a.id} className="appointment-item" style={{ 
+                            <div key={a._id} className="appointment-item" style={{ 
                                 display: 'flex', 
                                 justifyContent: 'space-between', 
                                 alignItems: 'center', 
@@ -139,8 +167,8 @@ export default function Appointments({ onComplete }) {
                                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
                             }}>
                                 <div>
-                                    <strong style={{ display: 'block' }}>{a.professionalName}</strong>
-                                    <span style={{ fontSize: '0.85rem', color: '#666' }}>{a.service} • {a.date} at {a.time}</span>
+                                    <strong style={{ display: 'block' }}>{a.professionalName || a.requestedProfessional}</strong>
+                                    <span style={{ fontSize: '0.85rem', color: '#666' }}>{a.type} • {a.date} at {a.time}</span>
                                 </div>
                                 <span className="status-badge" style={{ 
                                     padding: '5px 12px', 
