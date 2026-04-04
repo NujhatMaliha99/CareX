@@ -51,6 +51,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/messages', chatRoutes);
 app.use('/api/stories', storyRoutes);
 app.use('/api/mental-activity', activityRoutes);
+app.use('/api/ai', require('./routes/ai.routes'));
 
 // --- Socket.IO (Real-time Chat & Video Signaling) ---
 io.on('connection', (socket) => {

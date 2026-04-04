@@ -24,6 +24,10 @@ const storySchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    imageUrl: {
+        type: String,
+        required: false
+    },
     status: {
         type: String,
         enum: ['pending', 'approved', 'rejected'],

@@ -24,13 +24,22 @@ import Appointments from '../components/Appointments';
 import AIChatBot from '../components/AIChatBot';
 import HelplineModal from '../components/HelplineModal';
 import Footer from '../components/Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function MentalHealth({ user, handleLogout }) {
     const [showHelpline, setShowHelpline] = useState(false);
+    const [dailyAdvice, setDailyAdvice] = useState('');
     const [taskStatus, setTaskStatus] = useState(() => {
         return JSON.parse(localStorage.getItem('mentalTaskStatus') || '{}');
     });
+
+    useEffect(() => {
+        // Fetch a random piece of advice/wisdom for mental health support
+        axios.get('https://api.adviceslip.com/advice')
+            .then(res => setDailyAdvice(res.data.slip.advice))
+            .catch(err => console.error("Error fetching advice:", err));
+    }, []);
 
     const completeTask = (taskId) => {
         const newStatus = { ...taskStatus, [taskId]: true };
@@ -64,6 +73,21 @@ export default function MentalHealth({ user, handleLogout }) {
                     <p><strong>CareX Awareness Tool:</strong> This is for wellness support, not a medical diagnosis. If in
                         crisis, use the emergency button.</p>
                 </div>
+
+                {dailyAdvice && (
+                    <div className="wellness-wisdom-card fade-in delay-1" style={{ 
+                        background: 'rgba(255, 255, 255, 0.7)', 
+                        backdropFilter: 'blur(10px)', 
+                        padding: '20px 30px', 
+                        borderRadius: '20px', 
+                        marginBottom: '30px', 
+                        boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+                        borderLeft: '5px solid var(--accent-purple)'
+                    }}>
+                        <h3 style={{ color: 'var(--accent-purple)', fontSize: '1rem', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>✨ Wellness Wisdom</h3>
+                        <p style={{ fontSize: '1.1rem', color: 'var(--text-dark)', fontStyle: 'italic' }}>"{dailyAdvice}"</p>
+                    </div>
+                )}
 
                 <div className="little-banner fade-in">
                     <div className="banner-content">
