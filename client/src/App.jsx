@@ -11,6 +11,7 @@ import SplashScreen from "./physic/SplashScreen";
 import Resources from './pages/Resources';
 import './responsive.css';
 
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [user, setUser] = useState(null);
@@ -20,7 +21,7 @@ export default function App() {
       const token = localStorage.getItem('userToken');
       if (token) {
         try {
-          const res = await axios.get('http://localhost:5050/api/auth/me', {
+          const res = await axios.get('http://localhost:3000/api/auth/me', {
             headers: { Authorization: `Bearer ${token}` }
           });
           setUser(res.data.user);
@@ -50,7 +51,8 @@ export default function App() {
         <Route path="/hygiene" element={<HygieneAwareness user={user} handleLogout={handleLogout} />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/chat" element={<ChatRoom user={user} handleLogout={handleLogout} />} />
-        <Route path="/resources" element={<Resources user={user} handleLogout={handleLogout} />} />
+        <Route path="/resources" element={<Resources user={user} setUser={setUser} handleLogout={handleLogout} />} />
+       
       </Routes>
     </BrowserRouter>
   );
