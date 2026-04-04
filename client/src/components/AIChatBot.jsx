@@ -31,7 +31,7 @@ export default function AIChatBot() {
             // Prepare history for API
             const history = messages.map(m => ({ role: m.role, content: m.content }));
 
-            const res = await axios.post('/api/ai/chat', {
+            const res = await axios.post('http://localhost:3000/api/ai/chat', {
                 message: userMsg.content,
                 chatHistory: history
             });

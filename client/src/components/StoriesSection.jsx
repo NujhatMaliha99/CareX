@@ -53,14 +53,36 @@ export default function StoriesSection({ onComplete }) {
     const filters = ['All', 'Anxiety', 'Healing', 'Burnout', 'Self-Love'];
 
     const [showShareModal, setShowShareModal] = useState(false);
-    const [storyForm, setStoryForm] = useState({ title: '', moodTag: 'General', content: '', isAnonymous: true });
+    const [storyForm, setStoryForm] = useState({ title: '', moodTag: 'General', content: '', isAnonymous: true, image: null });
 
-    const submitStory = (e) => {
+    const submitStory = async (e) => {
         e.preventDefault();
-        alert('🌸 Story submitted! It will appear once approved by our team.');
-        setShowShareModal(false);
-        setStoryForm({ title: '', moodTag: 'General', content: '', isAnonymous: true });
-        if (onComplete) onComplete();
+        
+        const formData = new FormData();
+        formData.append('title', storyForm.title);
+        formData.append('moodTag', storyForm.moodTag);
+        formData.append('content', storyForm.content);
+        formData.append('isAnonymous', storyForm.isAnonymous);
+        if (storyForm.image) {
+            formData.append('image', storyForm.image);
+        }
+
+        try {
+            await axios.post('http://localhost:3000/api/stories', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                }
+            });
+            alert('🌸 Story submitted! It will appear soon.');
+            setShowShareModal(false);
+            setStoryForm({ title: '', moodTag: 'General', content: '', isAnonymous: true, image: null });
+            fetchStories(); // Refresh list to see it assuming auto-approve or if we are admin
+            if (onComplete) onComplete();
+        } catch (err) {
+            console.error("Submission error", err);
+            alert("Please login first to submit a story.");
+        }
     };
 
     return (
@@ -116,6 +138,9 @@ export default function StoriesSection({ onComplete }) {
                     }}>Story of the Day</span>
                     <span className="story-tag" style={{ background: 'rgba(126, 87, 194, 0.1)', color: 'var(--accent-purple)', padding: '4px 10px', borderRadius: '10px', fontSize: '0.8rem' }}>{filteredStories[0].moodTag}</span>
                     <h3 style={{ margin: '15px 0 10px 0', fontSize: '1.5rem' }}>{filteredStories[0].title}</h3>
+                    {filteredStories[0].imageUrl && (
+                        <img src={filteredStories[0].imageUrl} alt="Story visual" style={{ width: '100%', maxHeight: '300px', objectFit: 'cover', borderRadius: '15px', marginBottom: '15px' }} />
+                    )}
                     <p style={{ color: '#444', lineHeight: '1.6', fontSize: '0.95rem' }}>{filteredStories[0].content.substring(0, 200)}...</p>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px' }}>
                         <p className="story-meta" style={{ margin: 0, fontSize: '0.85rem', color: '#888' }}>
@@ -146,6 +171,9 @@ export default function StoriesSection({ onComplete }) {
                             <span className="story-tag" style={{ fontSize: '0.75rem', background: '#f5f5f5', padding: '3px 8px', borderRadius: '5px' }}>{story.moodTag}</span>
                             <span className="story-time" style={{ fontSize: '0.75rem', color: '#999' }}>{story.readTime}</span>
                         </div>
+                        {story.imageUrl && (
+                            <img src={story.imageUrl} alt="Story media" style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px' }} />
+                        )}
                         <h4 style={{ margin: '0 0 10px 0' }}>{story.title}</h4>
                         <div className="story-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px' }}>
                             <span style={{ fontSize: '0.8rem', color: '#888' }}>by {story.userId?.username || 'Anonymous'}</span>
@@ -204,6 +232,15 @@ export default function StoriesSection({ onComplete }) {
                                         value={storyForm.content}
                                         onChange={(e) => setStoryForm({ ...storyForm, content: e.target.value })}
                                     ></textarea>
+                                </div>
+                                <div className="input-group">
+                                    <label>Attach an Image (Optional) ☁️</label>
+                                    <input 
+                                        type="file" 
+                                        accept="image/*"
+                                        onChange={(e) => setStoryForm({ ...storyForm, image: e.target.files[0] })}
+                                        style={{ padding: '10px 0' }}
+                                    />
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                                     <input 
