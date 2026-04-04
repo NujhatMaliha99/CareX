@@ -9,17 +9,18 @@ const { Server } = require('socket.io');
 const connectDB = require('./config/db');
 
 // Route modules
-const authRoutes = require('./routes/auth.routes');
+const authRoutes        = require('./routes/auth.routes');
 const appointmentRoutes = require('./routes/appointment.routes');
-const adminRoutes = require('./routes/admin.routes');
-const chatRoutes = require('./routes/chat.routes');
-const storyRoutes = require('./routes/story.routes');
-const activityRoutes = require('./routes/activity.routes');
+const adminRoutes       = require('./routes/admin.routes');
+const chatRoutes        = require('./routes/chat.routes');
+const storyRoutes       = require('./routes/story.routes');
+const activityRoutes    = require('./routes/activity.routes');
+const hygieneRoutes     = require('./routes/hygiene.routes'); // ← NEW
 
 // --- App Setup ---
-const app = express();
+const app    = express();
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: '*' } });
+const io     = new Server(server, { cors: { origin: '*' } });
 
 app.use(require('cors')());
 app.use(express.json());
@@ -45,12 +46,13 @@ app.use((req, res, next) => {
 });
 
 // --- API Routes ---
-app.use('/api/auth', authRoutes);
-app.use('/api/appointments', appointmentRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/messages', chatRoutes);
-app.use('/api/stories', storyRoutes);
+app.use('/api/auth',            authRoutes);
+app.use('/api/appointments',    appointmentRoutes);
+app.use('/api/admin',           adminRoutes);
+app.use('/api/messages',        chatRoutes);
+app.use('/api/stories',         storyRoutes);
 app.use('/api/mental-activity', activityRoutes);
+app.use('/api/hygiene',         hygieneRoutes);  // ← NEW
 
 // --- Socket.IO (Real-time Chat & Video Signaling) ---
 io.on('connection', (socket) => {
@@ -61,10 +63,10 @@ io.on('connection', (socket) => {
     });
 
     // WebRTC signaling
-    socket.on('call-offer', (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-offer', data));
-    socket.on('call-answer', (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-answer', data));
-    socket.on('ice-candidate', (data) => socket.to(`appointment-${data.appointmentId}`).emit('ice-candidate', data));
-    socket.on('call-end', (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-ended'));
+    socket.on('call-offer',      (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-offer', data));
+    socket.on('call-answer',     (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-answer', data));
+    socket.on('ice-candidate',   (data) => socket.to(`appointment-${data.appointmentId}`).emit('ice-candidate', data));
+    socket.on('call-end',        (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-ended'));
 
     socket.on('disconnect', () => console.log('🔌 User disconnected:', socket.id));
 });
