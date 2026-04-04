@@ -4,7 +4,7 @@ const dns = require('dns');
 // Force Google DNS to avoid SRV lookup failures on some networks
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/carex';
+const MONGODB_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/carex';
 
 const CONNECTION_OPTIONS = {
     serverSelectionTimeoutMS: 5000,
