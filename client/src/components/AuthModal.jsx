@@ -22,7 +22,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
         const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
 
         try {
-            const res = await axios.post(`http://localhost:5050${endpoint}`, formData);
+            const res = await axios.post(`http://localhost:3000${endpoint}`, formData);
             if (res.data.token) {
                 localStorage.setItem('userToken', res.data.token);
                 onAuthSuccess(res.data.user);
