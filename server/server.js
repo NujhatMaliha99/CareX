@@ -5,6 +5,7 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const { Server } = require('socket.io');
+const healthRoutes = require("./routes/health.routes");
 
 const connectDB = require('./config/db');
 
@@ -51,6 +52,31 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/messages', chatRoutes);
 app.use('/api/stories', storyRoutes);
 app.use('/api/mental-activity', activityRoutes);
+app.use("/api", healthRoutes);
+
+// BMI
+app.post("/api/bmi", (req, res) => {
+    console.log("BMI:", req.body);
+    res.json({ success: true });
+});
+
+// Symptoms
+app.post("/api/symptoms", (req, res) => {
+    console.log("Symptom:", req.body);
+    res.json({ success: true });
+});
+
+// Water
+app.post("/api/water", (req, res) => {
+    console.log("Water:", req.body);
+    res.json({ success: true });
+});
+
+// Habits
+app.post("/api/habits", (req, res) => {
+    console.log("Habits:", req.body);
+    res.json({ success: true });
+});
 
 // --- Socket.IO (Real-time Chat & Video Signaling) ---
 io.on('connection', (socket) => {
