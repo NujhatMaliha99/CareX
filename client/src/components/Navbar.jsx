@@ -33,12 +33,13 @@ export default function Navbar({ user, handleLogout, transparent, onLoginClick }
                     <Link to="/physical" onClick={() => setIsMenuOpen(false)}>Physical Health</Link>
                     <Link to="/mental" onClick={() => setIsMenuOpen(false)} className={isMentalPage ? 'nav-active' : ''}>Mental Health</Link>
                     <Link to="/hygiene" onClick={() => setIsMenuOpen(false)}>Hygiene & Awareness</Link>
+                    <Link to="/resources" onClick={() => setIsMenuOpen(false)}>Resources</Link>
                     {user ? (
                         <div className="user-profile-nav">
                             <span className="user-greeting">Hi, {user.name.split(' ')[0]} 👋</span>
                             <button onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="btn-logout-minimal">Logout</button>
                         </div>
-                    ) : (
+                    ) : isHomePage && (
                         <div className="nav-auth-buttons">
                             <button onClick={() => { if (onLoginClick) onLoginClick(); setIsMenuOpen(false); }} className="btn-login-header">Login</button>
                             <button onClick={() => { if (onLoginClick) onLoginClick(); setIsMenuOpen(false); }} className="btn-get-started btn-signup-header">Sign Up</button>

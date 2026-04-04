@@ -10,7 +10,7 @@ export default function ThoughtReframe({ onComplete }) {
         if (!thought.trim()) return;
         setLoading(true);
         try {
-            const response = await axios.post('/api/ai/reframe', { thought });
+            const response = await axios.post('http://localhost:3000/api/ai/reframe', { thought });
             setReframe(response.data.reframe);
             if (onComplete) onComplete();
         } catch (error) {

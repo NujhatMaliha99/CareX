@@ -1,7 +1,11 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import Navbar from '../components/Navbar';
+import AuthModal from '../components/AuthModal';
 
-export default function Resources() {
+export default function Resources({ user, setUser, handleLogout }) {
   const navigate = useNavigate();
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   const resources = [
     {
@@ -50,20 +54,13 @@ export default function Resources() {
           <div className="cloud cloud-3"></div>
           <div className="stars-layer"></div>
         </div>
-        <header className="front-page-header">
-          <div className="container header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div className="logo-group">
-              <span className="heart-logo">💙</span>
-              <span className="logo-text">CareX</span>
-            </div>
-            <nav className="front-nav">
-              <Link to="/">Home</Link>
-              <Link to="/resources">Resources</Link>
-              <a href="#about">About</a>
-              <Link to="/mental" className="btn-get-started">Get Started</Link>
-            </nav>
-          </div>
-        </header>
+        <Navbar user={user} handleLogout={handleLogout} transparent={true} onLoginClick={() => setIsAuthOpen(true)} />
+
+        <AuthModal
+            isOpen={isAuthOpen}
+            onClose={() => setIsAuthOpen(false)}
+            onAuthSuccess={(userData) => setUser(userData)}
+        />
 
         <div className="resources-page dreamy-page">
           <div className="resource-page">
