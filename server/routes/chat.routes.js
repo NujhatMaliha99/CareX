@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const path = require('path');
 const Message = require('../models/Message');
 const Appointment = require('../models/Appointment');
 const { authenticate } = require('../middleware/auth');
+const { cloudinary } = require('../config/cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const multer = require('multer');
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, path.join(__dirname, '../uploads')),
-    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
+// Cloudinary storage for chat images
+const chatStorage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'carex_chat',
+        allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+        transformation: [{ width: 800, crop: 'limit' }]
+    }
 });
-const upload = multer({ storage });
+const upload = multer({ storage: chatStorage });
 
 // GET /api/messages/:appointmentId
 router.get('/:appointmentId', authenticate, async (req, res) => {
@@ -63,7 +69,7 @@ router.post('/image', authenticate, upload.single('image'), async (req, res) => 
             appointmentId,
             senderId: req.user._id,
             receiverId,
-            imageUrl: `/uploads/${req.file.filename}`,
+            imageUrl: req.file.path,  // Cloudinary HTTPS URL
             messageType: 'image'
         });
         await message.save();
