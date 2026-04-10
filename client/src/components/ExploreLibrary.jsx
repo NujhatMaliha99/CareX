@@ -158,7 +158,7 @@ export default function ExploreLibrary({ onComplete }) {
                                 <p>{selectedTopic.details.what}</p>
                             </div>
                             
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+                            <div className="library-modal-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
                                 <div className="detail-section">
                                     <h4 style={{ color: 'var(--accent-purple)' }}>🔍 Common Signs</h4>
                                     <ul style={{ paddingLeft: '20px', fontSize: '0.9rem' }}>

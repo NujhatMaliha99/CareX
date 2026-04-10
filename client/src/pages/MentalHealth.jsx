@@ -182,7 +182,7 @@ export default function MentalHealth({ user, handleLogout }) {
                         </section>
 
                         <section id="appointments" style={{ marginTop: '40px' }}>
-                            <Appointments onComplete={() => completeTask('appointments')} />
+                            <Appointments onComplete={() => completeTask('appointments')} user={user} />
                         </section>
 
                     </main>

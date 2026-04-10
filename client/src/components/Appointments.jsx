@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ConsultationRoom from './ConsultationRoom';
 
-export default function Appointments({ onComplete }) {
+export default function Appointments({ onComplete, user }) {
     const [formData, setFormData] = useState({
         service: 'Counselling',
         professionalName: 'Dr. Md. Zahir Uddin',
@@ -11,6 +12,7 @@ export default function Appointments({ onComplete }) {
     });
     const [loading, setLoading] = useState(false);
     const [appointments, setAppointments] = useState([]);
+    const [activeSession, setActiveSession] = useState(null); // appointment obj for ConsultationRoom
 
     useEffect(() => {
         fetchAppointments();
@@ -155,34 +157,62 @@ export default function Appointments({ onComplete }) {
                 <div style={{ marginTop: '40px' }}>
                     <h3>Your Appointments</h3>
                     <div className="appointment-list" style={{ marginTop: '15px' }}>
-                        {appointments.map(a => (
-                            <div key={a._id} className="appointment-item" style={{ 
-                                display: 'flex', 
-                                justifyContent: 'space-between', 
-                                alignItems: 'center', 
-                                padding: '15px', 
-                                background: 'white', 
-                                borderRadius: '12px', 
-                                marginBottom: '10px',
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
-                            }}>
-                                <div>
-                                    <strong style={{ display: 'block' }}>{a.professionalName || a.requestedProfessional}</strong>
-                                    <span style={{ fontSize: '0.85rem', color: '#666' }}>{a.type} • {a.date} at {a.time}</span>
+                        {appointments.map(a => {
+                            const statusColors = {
+                                pending:  { bg: '#fff3e0', color: '#ef6c00' },
+                                approved: { bg: '#e8f5e9', color: '#2e7d32' },
+                                rejected: { bg: '#ffebee', color: '#c62828' },
+                                completed:{ bg: '#e3f2fd', color: '#1565c0' }
+                            };
+                            const sc = statusColors[a.status] || statusColors.pending;
+                            return (
+                                <div key={a._id} className="appointment-card" style={{
+                                    display: 'flex', justifyContent: 'space-between',
+                                    alignItems: 'center', padding: '15px',
+                                    background: 'white', borderRadius: '14px',
+                                    marginBottom: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                                    border: a.status === 'approved' ? '2px solid #a5d6a7' : '1px solid #f0f0f0'
+                                }}>
+                                    <div>
+                                        <strong style={{ display: 'block', fontSize: '0.95rem' }}>
+                                            {a.professionalId?.name || a.requestedProfessional}
+                                        </strong>
+                                        <span style={{ fontSize: '0.82rem', color: '#666' }}>{a.type} • {a.date} at {a.time}</span>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                                        {a.status === 'approved' && (
+                                            <button
+                                                onClick={() => setActiveSession(a)}
+                                                style={{
+                                                    background: 'linear-gradient(135deg, #c3b1e1, #b39ddb)',
+                                                    color: 'white', border: 'none',
+                                                    borderRadius: '20px', padding: '7px 14px',
+                                                    cursor: 'pointer', fontWeight: 700, fontSize: '0.8rem'
+                                                }}
+                                            >
+                                                💬 Open Session
+                                            </button>
+                                        )}
+                                        <span style={{
+                                            padding: '5px 12px', background: sc.bg, color: sc.color,
+                                            borderRadius: '15px', fontSize: '0.75rem',
+                                            fontWeight: 700, textTransform: 'uppercase'
+                                        }}>{a.status}</span>
+                                    </div>
                                 </div>
-                                <span className="status-badge" style={{ 
-                                    padding: '5px 12px', 
-                                    background: '#fff3e0', 
-                                    color: '#ef6c00', 
-                                    borderRadius: '15px', 
-                                    fontSize: '0.75rem', 
-                                    fontWeight: 700,
-                                    textTransform: 'uppercase'
-                                }}>{a.status}</span>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
+            )}
+
+            {/* Consultation Room Modal */}
+            {activeSession && (
+                <ConsultationRoom
+                    appointment={activeSession}
+                    user={user}
+                    onClose={() => setActiveSession(null)}
+                />
             )}
         </div>
     );

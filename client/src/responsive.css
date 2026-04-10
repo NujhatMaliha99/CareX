@@ -175,6 +175,11 @@
     .wellness-wisdom-card p {
         font-size: 0.95rem !important;
     }
+
+    .library-modal-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -213,15 +218,70 @@
     #today-suggestion {
         margin-bottom: 40px !important;
     }
+
+    .appointment-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px !important;
+    }
+
+    .appointment-card > div:last-child {
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
 }
 
-/* Specific Taller Devices (iPhone 14 / Galaxy A) */
-@media (min-height: 800px) and (max-width: 480px) {
-    .little-banner {
-        padding: 60px 25px !important;
+/* --- Consultation Room Responsiveness --- */
+@media (max-width: 768px) {
+    .consultation-overlay {
+        padding: 0 !important;
     }
-    
-    .mental-layout {
-        gap: 40px !important;
+
+    .consultation-room {
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+    }
+
+    .chat-bubble {
+        max-width: 85% !important;
+    }
+
+    .video-grid {
+        flex-direction: column !important;
+    }
+
+    .video-box {
+        flex: 1 1 auto !important;
+        width: 100% !important;
+    }
+
+    .local-video-box {
+        position: absolute !important;
+        top: 20px !important;
+        right: 20px !important;
+        width: 100px !important;
+        height: 130px !important;
+        z-index: 10;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+}
+
+@media (max-width: 480px) {
+    .consultation-header {
+        padding: 12px 15px !important;
+    }
+
+    .consultation-header h3 {
+        font-size: 0.9rem !important;
+    }
+
+    .chat-input-area {
+        padding: 8px 12px !important;
+    }
+
+    .chat-text-input {
+        font-size: 0.85rem !important;
     }
 }

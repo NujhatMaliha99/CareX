@@ -120,6 +120,10 @@ function renderAppointments(apps) {
             </td>
             <td><span class="badge-${a.type.toLowerCase()}">${a.type}</span></td>
             <td>
+                <div style="font-weight:600; color:#5c35a8;">${a.requestedProfessional || '—'}</div>
+                <div style="font-size:0.75rem; color:#888;">Requested</div>
+            </td>
+            <td>
                 <div>${new Date(a.date).toLocaleDateString()}</div>
                 <div style="font-size: 0.8rem; color: #888;">${a.time}</div>
             </td>
@@ -141,7 +145,7 @@ function renderAppointments(apps) {
                 </div>
             </td>
         </tr>
-    `).join('') || '<tr><td colspan="6" style="text-align:center; padding: 40px;">No appointments found.</td></tr>';
+    `).join('') || '<tr><td colspan="7" style="text-align:center; padding: 40px;">No appointments found.</td></tr>';
 }
 
 async function updateAppointment(id, status) {
