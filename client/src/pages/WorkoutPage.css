@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#f8f7f4;
+  --surface:#ffffff;
+  --surface2:#f2f1ee;
+  --text:#1a1a1a;
+  --muted:#6b6b6b;
+  --border:#e4e2dd;
+  --green:#16a34a;
+  --r:12px;
+  --rs:8px;
+}
+
+.workout-page{background:var(--bg);min-height:100vh;font-family:'Nunito',sans-serif;color:var(--text);font-size:14px}
+.wo-container{max-width:820px;margin:0 auto;padding:24px 20px 64px}
+
+/* BACK */
+.back-btn{background:none;border:0.5px solid var(--border);border-radius:var(--rs);padding:8px 16px;font-size:13px;font-family:'Nunito',sans-serif;font-weight:600;cursor:pointer;color:var(--muted);margin-bottom:20px;transition:.15s;display:inline-flex;align-items:center;gap:6px}
+.back-btn:hover{border-color:#bbb;color:var(--text)}
+
+/* HERO */
+.wo-hero{border-radius:var(--r);padding:24px 28px;color:#fff;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+.wo-hero-inner{display:flex;align-items:center;gap:16px}
+.wo-hero-emoji{font-size:36px;line-height:1}
+.wo-hero-name{font-size:20px;font-weight:800;margin-bottom:4px}
+.wo-hero-sub{font-size:13px;opacity:.7}
+.wo-timer{text-align:right}
+.wo-timer-val{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.wo-timer-lbl{font-size:11px;opacity:.6;margin-top:2px}
+
+/* PLAN TABS */
+.plan-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.plan-tab{font-size:13px;font-weight:600;font-family:'Nunito',sans-serif;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rs);padding:9px 18px;cursor:pointer;transition:.15s}
+.plan-tab:hover{border-color:#bbb}
+.plan-tab.active{font-weight:700}
+
+/* STATS */
+.plan-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.plan-stat{border-radius:var(--rs);padding:14px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;border:0.5px solid var(--border)}
+.plan-stat span:last-child{font-size:11px;color:var(--muted)}
+
+/* PROGRESS */
+.progress-section{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rs);padding:14px 16px;margin-bottom:14px}
+.wo-progress-bar{background:var(--surface2);border-radius:20px;height:8px;overflow:hidden;border:0.5px solid var(--border)}
+.wo-progress-bar div{height:100%;border-radius:20px;transition:width .3s ease}
+
+/* EXERCISES */
+.exercise-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.exercise-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:18px;transition:.2s}
+.exercise-card.completed{border-color:#bbf7d0;background:#f0fdf4}
+.exercise-header{display:flex;align-items:center;gap:12px}
+.exercise-num{width:32px;height:32px;border-radius:50%;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.exercise-info{flex:1}
+.exercise-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.exercise-muscle{font-size:12px;color:var(--muted)}
+.exercise-meta{display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0}
+.ex-meta-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--surface2);color:var(--text);border:0.5px solid var(--border);white-space:nowrap}
+.ex-meta-tag.secondary{color:var(--muted);font-weight:500}
+
+/* SETS TRACKER */
+.sets-tracker{display:flex;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:0.5px solid var(--border)}
+.sets-label{font-size:12px;color:var(--muted);flex-shrink:0;font-weight:600}
+.sets-dots{display:flex;gap:8px;flex-wrap:wrap}
+.set-dot{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;font-weight:700;color:var(--muted);transition:.15s;font-family:'Nunito',sans-serif}
+.set-dot:hover{border-color:#94a3b8}
+.set-dot.done{color:#fff}
+
+/* ACTIONS */
+.wo-actions{display:flex;flex-direction:column;gap:10px}
+.wo-btn-start{color:#fff;border:none;border-radius:var(--rs);padding:14px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s;width:100%}
+.wo-btn-start:hover{opacity:.88}
+.wo-btn-outline{background:transparent;border:0.5px solid var(--border);border-radius:var(--rs);padding:12px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Nunito',sans-serif;color:var(--text);transition:.15s;width:100%}
+.wo-btn-outline:hover{background:var(--surface2)}
+
+/* DONE CARD */
+.wo-done-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:28px;text-align:center}
+.wo-done-emoji{font-size:42px;margin-bottom:12px}
+.wo-done-card h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.wo-done-card p{font-size:14px;color:var(--muted)}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .wo-container{padding:16px 14px 48px}
+  .plan-stats{grid-template-columns:repeat(2,1fr)}
+  .plan-tabs{gap:6px}
+  .wo-hero{flex-direction:column;align-items:flex-start;gap:12px}
+  .exercise-meta{flex-direction:row;align-items:center}
+}

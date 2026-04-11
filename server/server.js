@@ -1,13 +1,12 @@
 require('dotenv').config();
 
 const express = require('express');
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
-const cors = require('cors');
+const http    = require('http');
+const path    = require('path');
+const fs      = require('fs');
+const cors    = require('cors');
 const { Server } = require('socket.io');
-
-const connectDB = require('./config/db');
+const connectDB  = require('./config/db');
 
 // Route modules
 const authRoutes        = require('./routes/auth.routes');
@@ -19,112 +18,63 @@ const activityRoutes    = require('./routes/activity.routes');
 const healthRoutes      = require('./routes/health.routes');
 const hygieneRoutes     = require('./routes/hygiene.routes');
 
-// ---------------- APP SETUP ----------------
-const app = express();
+// ── NEW: unified health API route
+const physicalHealthRoutes = require('./routes/health.routes');   // <-- routes/health.js (new file)
+
+const app    = express();
 const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: '*'
-    }
-});
+const io     = new Server(server, { cors: { origin: '*' } });
 
 app.use(cors());
 app.use(express.json());
 
-// ---------------- ROOT ----------------
-app.get('/', (req, res) => {
-    res.redirect('/admin.html');
-});
+// Socket.io access in routes
+app.use((req, res, next) => { req.io = io; next(); });
 
-// ---------------- STATIC FILES ----------------
+// Static files
 app.use(express.static(path.join(__dirname, '../client_legacy'), { index: false }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Create uploads folder if it doesn't exist
 const uploadPath = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath);
-}
+if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath);
 
-// ---------------- SOCKET.IO ACCESS ----------------
-app.use((req, res, next) => {
-    req.io = io;
-    next();
-});
+// Root redirect
+app.get('/', (req, res) => res.redirect('/admin.html'));
 
-// ---------------- API ROUTES ----------------
-app.use('/api/auth', authRoutes);
-app.use('/api/appointments', appointmentRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/messages', chatRoutes);
-app.use('/api/stories', storyRoutes);
-app.use('/api/mental-activity', activityRoutes);
-app.use('/api/health', healthRoutes);
-app.use('/api/hygiene', hygieneRoutes);
-app.use('/api/ai', require('./routes/ai.routes'));
+// ── API ROUTES ──────────────────────────────────────────
+app.use('/api/auth',           authRoutes);
+app.use('/api/appointments',   appointmentRoutes);
+app.use('/api/admin',          adminRoutes);
+app.use('/api/messages',       chatRoutes);
+app.use('/api/stories',        storyRoutes);
+app.use('/api/mental-activity',activityRoutes);
+app.use('/api/health',         healthRoutes);
+app.use('/api/hygiene',        hygieneRoutes);
+app.use('/api/ai',             require('./routes/ai.routes'));
 
-// ---------------- HEALTH TRACKING APIs ----------------
+// ── Physical Health APIs (BMI, Habits, Water, Symptoms, Nutrition, Workout, Doctors)
+app.use('/api', physicalHealthRoutes);
 
-// BMI
-app.post('/api/bmi', (req, res) => {
-    console.log('BMI Data:', req.body);
-    res.json({ success: true });
-});
-
-// Symptoms
-app.post('/api/symptoms', (req, res) => {
-    console.log('Symptoms:', req.body);
-    res.json({ success: true });
-});
-
-// Water intake
-app.post('/api/water', (req, res) => {
-    console.log('Water Intake:', req.body);
-    res.json({ success: true });
-});
-
-// Daily habits
-app.post('/api/habits', (req, res) => {
-    console.log('Habits:', req.body);
-    res.json({ success: true });
-});
-
-// ---------------- SOCKET.IO (REAL-TIME CHAT + VIDEO CALL) ----------------
+// ── SOCKET.IO ───────────────────────────────────────────
 io.on('connection', (socket) => {
-    console.log('🔌 User connected:', socket.id);
+  console.log('🔌 User connected:', socket.id);
 
-    // Join appointment room
-    socket.on('join-appointment', (appointmentId) => {
-        socket.join(`appointment-${appointmentId}`);
-    });
+  socket.on('join-appointment', (appointmentId) => {
+    socket.join(`appointment-${appointmentId}`);
+  });
+  socket.on('call-offer',     (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-offer', data));
+  socket.on('call-answer',    (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-answer', data));
+  socket.on('ice-candidate',  (data) => socket.to(`appointment-${data.appointmentId}`).emit('ice-candidate', data));
+  socket.on('call-end',       (data) => socket.to(`appointment-${data.appointmentId}`).emit('call-ended'));
 
-    // WebRTC signaling
-    socket.on('call-offer', (data) => {
-        socket.to(`appointment-${data.appointmentId}`).emit('call-offer', data);
-    });
+  // Doctor chat rooms
+  socket.on('join-doctor-chat', (doctorId) => socket.join(`doc-${doctorId}`));
+  socket.on('doctor-message',   (data)     => socket.to(`doc-${data.doctorId}`).emit('new-message', data));
 
-    socket.on('call-answer', (data) => {
-        socket.to(`appointment-${data.appointmentId}`).emit('call-answer', data);
-    });
-
-    socket.on('ice-candidate', (data) => {
-        socket.to(`appointment-${data.appointmentId}`).emit('ice-candidate', data);
-    });
-
-    socket.on('call-end', (data) => {
-        socket.to(`appointment-${data.appointmentId}`).emit('call-ended');
-    });
-
-    socket.on('disconnect', () => {
-        console.log('🔌 User disconnected:', socket.id);
-    });
+  socket.on('disconnect', () => console.log('🔌 User disconnected:', socket.id));
 });
 
-// ---------------- START SERVER ----------------
+// ── START ───────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
-
 connectDB().then(() => {
-    server.listen(PORT, () => {
-        console.log(`🚀 CareX Backend running on port ${PORT}`);
-    });
+  server.listen(PORT, () => console.log(`🚀 CareX Backend running on port ${PORT}`));
 });
