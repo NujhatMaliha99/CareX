@@ -5,6 +5,8 @@ import PhysicalHealth from './pages/PhysicalHealth';
 import HygieneAwareness from './pages/HygieneAwareness';
 import AdminDashboard from './pages/AdminDashboard';
 import ChatRoom from './pages/ChatRoom';
+import WorkoutPage from './pages/WorkoutPage';
+import ProfilePage from './pages/ProfilePage';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import SplashScreen from "./physic/SplashScreen";
@@ -52,6 +54,15 @@ export default function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/chat" element={<ChatRoom user={user} handleLogout={handleLogout} />} />
         <Route path="/resources" element={<Resources user={user} setUser={setUser} handleLogout={handleLogout} />} />
+        <Route 
+         path="/physical/workout" 
+         element={<WorkoutPage user={user} handleLogout={handleLogout} />} 
+         />
+
+        <Route 
+        path="/physical/profile" 
+        element={<ProfilePage user={user} handleLogout={handleLogout} />} 
+        />
        
       </Routes>
     </BrowserRouter>
