@@ -1,0 +1,23 @@
+# Task: Integrate Physical Health Features
+
+- [/] Planning & Documentation `[/]`
+    - [x] Research codebase
+    - [x] Create implementation plan
+- [ ] Backend Implementation `[/]`
+    - [x] Update `Health` model (add `userId`)
+    - [x] Create `Workout` model
+    - [x] Implement `health.routes.js` (BMI, Habits, Water, Symptoms history)
+    - [x] Implement `workout.routes.js` (Log, History)
+    - [x] Update `server.js` to mount routes
+- [x] Frontend Implementation `[x]`
+    - [x] Add routes to `App.jsx`
+    - [x] Link `PhysicalHealth.jsx` to `/workout`
+    - [x] Add Profile link to `Navbar.jsx`
+- [x] Verification `[x]`
+    - [x] Fix API port in `api.js`
+    - [x] Test navigation and features
+    - [x] Ensure backend runs on port 3000 on Disk D
+    - [x] Diagnose and fix DNS/SSL issues in `db.js`
+    - [x] Verify backend operational (401 response via curl)
+    - [x] Implement multi-shard fallback and increase buffer timeout (30s)
+    - [x] **Success**: MongoDB Connected and data loading verified!
