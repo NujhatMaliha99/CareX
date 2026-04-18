@@ -1,4 +1,11 @@
 node_modules/
 client/node_modules/
 server/node_modules/
-.env
+**/.env
+**/.env.local
+tmp*
+*.log
+*.txt
+/CareX/backup/
+test_*.js
+**/test_*.js
